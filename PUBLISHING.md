@@ -10,10 +10,9 @@ Throughout, `YOURNAME` means your GitHub username.
 ## 1. Create the repository
 
 1. Go to <https://github.com/new> (signed in to your existing account).
-2. **Repository name:** `rays-escaping`
-   *(Dots are not allowed in GitHub names, so `rays.escaping` can't be used.
-   With a custom domain attached in step 4, this name never appears in the URL
-   anyway.)*
+2. **Repository name:** `art_website`
+   *(Once the custom domain is attached in step 4, the repository name never
+   appears in the URL. It's only visible if someone browses your GitHub profile.)*
 3. Set it to **Public**. GitHub Pages needs public on a free account.
 4. **Do not** tick "Add a README", "Add .gitignore", or "Choose a license" —
    those files already exist here and GitHub would conflict with them.
@@ -33,7 +32,7 @@ The project folder is already a git repository with everything committed.
    `C:\Users\sofia\OneDrive\Desktop\ART\art_website`
 4. It should say the repository has no remote. Click **Publish repository**.
 5. In the dialog:
-   - **Name:** `rays-escaping` (must match step 1)
+   - **Name:** `art_website` (must match step 1)
    - **Untick "Keep this code private"** ← important
 6. Click **Publish repository**.
 
@@ -54,7 +53,7 @@ export contains your Android device ID, so it's excluded by `.gitignore`.
 3. **Branch:** `main`, folder: **`/ (root)`**. Click **Save**.
 4. Wait 1–3 minutes. Refresh the page; a banner appears with your live URL:
 
-   `https://YOURNAME.github.io/rays-escaping/`
+   `https://YOURNAME.github.io/art_website/`
 
 Open it. The site is now live and you could put that link on your CV as-is.
 
@@ -63,40 +62,49 @@ Open it. The site is now live and you could put that link on your CV as-is.
 
 ---
 
-## 4. Attach your own domain
+## 4. Attach `art.sofiavasieva.com`
 
-Skip this if you're happy with the github.io URL.
+Skip for now if the domain transfer to IONOS hasn't finished. The site is
+already live on the github.io URL, and switching later breaks nothing — GitHub
+redirects the old URL to the new one.
 
-### 4a. At your domain registrar
+> **Wait for the transfer to complete first.** Registrar transfers take about
+> 5–7 days, and DNS records are commonly reset or wiped during them. Records
+> added mid-transfer may silently disappear.
 
-Open your domain's **DNS settings** and add **one** record.
+Using a subdomain keeps the bare `sofiavasieva.com` free for your science site
+later. The two can point at completely different repositories.
 
-**If you're using a subdomain** such as `art.yourdomain.com` — recommended, and
-free if you already own the domain:
+### 4a. In the IONOS control panel
 
-| Type | Name / Host | Value / Points to |
-|---|---|---|
-| CNAME | `art` | `YOURNAME.github.io` |
+1. Log in at <https://my.ionos.com>.
+2. **Domains & SSL** → click **sofiavasieva.com**.
+3. Open the **DNS** tab.
+4. Click **Add record** and choose **CNAME**.
+5. Fill in:
 
-Note the value is `YOURNAME.github.io` — the account, **not** the repository.
-Some registrars require a trailing dot: `YOURNAME.github.io.`
+   | Field | Value |
+   |---|---|
+   | **Host name** | `art` |
+   | **Points to** | `YOURNAME.github.io` |
+   | **TTL** | leave default (1 hour) |
 
-**If you're using the bare domain** such as `raysescaping.com`, add four A
-records instead:
+6. Save.
 
-| Type | Name / Host | Value |
-|---|---|---|
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
+Two things people get wrong here:
 
-and optionally a CNAME for `www` → `YOURNAME.github.io`.
+- **Host name is just `art`**, not `art.sofiavasieva.com`. IONOS appends the
+  domain automatically; typing the full name gives you
+  `art.sofiavasieva.com.sofiavasieva.com`.
+- **Points to is your GitHub _account_**, `YOURNAME.github.io` — not the
+  repository. There is no `/art_website` on the end.
+
+Replace `YOURNAME` with your actual GitHub username.
 
 ### 4b. Back on GitHub
 
 1. **Settings → Pages → Custom domain**.
-2. Type the full domain, e.g. `art.yourdomain.com`. Click **Save**.
+2. Type `art.sofiavasieva.com`. Click **Save**.
    GitHub adds a `CNAME` file to the repository — that's expected.
 3. GitHub checks DNS. You may see *"Domain's DNS record could not be verified"*
    for a while; this is normal and clears once DNS propagates. Usually minutes,
@@ -107,7 +115,23 @@ and optionally a CNAME for `www` → `YOURNAME.github.io`.
 **Don't put the link on your CV until Enforce HTTPS is ticked** and the padlock
 shows in the browser.
 
-### 4c. Worth doing
+### 4c. Later, for the science site
+
+When you build the academic site, give it its own repository and point the bare
+domain at it with **A records** (IONOS: Add record → A, host `@`):
+
+| Type | Host | Value |
+|---|---|---|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+
+`art.sofiavasieva.com` keeps working throughout — a CNAME on a subdomain and A
+records on the bare domain are independent, and each repository claims its own
+hostname in its own Pages settings.
+
+### 4d. Worth doing
 
 **Settings → Pages → Verify domain** (on your *account* settings, not the repo)
 stops anyone else claiming your domain on GitHub later.
