@@ -43,7 +43,7 @@ TITLES = {
     # other work
     "18123778063380671.jpg": ("Another guinea pig", "guinea pig", "other"),
     "18036178498996164.jpg": ("A guinea pig", "guinea pig", "other"),
-    "18011479976048402.jpg": ("Theodoros, a legendary frog", "theodoros", "other"),
+    "18011479976048402.jpg": ("Theodoros the frog", "theodoros", "other"),
     "17937878366333633.webp": ("Northern lights over Chocorua Lake", "northern lights", "other"),
     "17943810971147949.webp": ("Sunset", "sunset", "other"),
     "18003102209336565.jpg": ("A portrait", "nephew", "other"),
@@ -56,6 +56,12 @@ MERGE_INTO = {"17970471571710256.webp": "17991007885468360.webp"}
 
 # not paintings; kept out of the gallery
 EXCLUDE = {"18100029988294296.webp": "introduction post - offered as about-section source"}
+
+# Sofia asked for "postcard size" to read as the actual A6 measurements.
+SIZE_NORMALISE = {"postcard size": "10.5 × 14.8 cm"}
+
+# pairs of slugs whose positions in the gallery are swapped
+SWAP_ORDER = [("a-guinea-pig", "another-guinea-pig")]
 
 SIZE_RE = re.compile(
     r"(?ix)"
@@ -126,7 +132,21 @@ def find_medium_and_size(cap):
         medium = (medium + " on paper").strip()
     m = SIZE_RE.search(cap)
     size = re.sub(r"\s+", " ", m.group(1).strip()) if m else ""
-    return medium, size
+    size = SIZE_NORMALISE.get(size.lower(), size)
+    return medium, tidy_size(size)
+
+
+def tidy_size(size):
+    """Formatting only: the captions write the same measurement several ways
+    (10.5x14.8cm / 10.5 x 14.8 cm / 10.5 × 14.8 cm). Render them identically."""
+    if not size:
+        return size
+    m = re.match(r"(?i)^\s*(\d{1,3}(?:[.,]\d)?)\s*[x×]\s*(\d{1,3}(?:[.,]\d)?)\s*(?:cm)?\s*$",
+                 size)
+    if m:
+        return "%s × %s cm" % (m.group(1).replace(",", "."),
+                                    m.group(2).replace(",", "."))
+    return re.sub(r"(?i)^(A[2-6])\s+size$", r"\1", size.strip())
 
 
 def load_existing_images():
@@ -196,6 +216,16 @@ def main():
             "sourceImages": media,
             "images": existing.get(slug, []),
         })
+
+    # apply requested position swaps, then lock the gallery to `order`
+    by_slug = {x["slug"]: x for x in entries}
+    for a, b in SWAP_ORDER:
+        if a in by_slug and b in by_slug:
+            by_slug[a]["order"], by_slug[b]["order"] = \
+                by_slug[b]["order"], by_slug[a]["order"]
+        else:
+            problems.append("SWAP_ORDER refers to unknown slug: %s / %s" % (a, b))
+    entries.sort(key=lambda x: x["order"])
 
     data = {
         "artist": "Sofia Vasieva",

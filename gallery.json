@@ -64,7 +64,7 @@
         "watercolourgalaxy"
       ],
       "medium": "Watercolour on paper",
-      "size": "14.8x21cm",
+      "size": "14.8 × 21 cm",
       "takenRaw": "",
       "sourceImages": [
         "18077769806740616.jpg"
@@ -109,7 +109,7 @@
         "watercolourgalaxy"
       ],
       "medium": "Watercolour on paper",
-      "size": "10.5 x 14.8 cm",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "18115171588969654.jpg"
@@ -154,7 +154,7 @@
         "watercolourgalaxy"
       ],
       "medium": "Watercolour on paper",
-      "size": "10.5x14.8cm",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "18352826488219962.jpg"
@@ -199,7 +199,7 @@
         "watercolourpaintings"
       ],
       "medium": "Watercolour on black paper",
-      "size": "10.5x14.8cm",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "17994646487943628.jpg"
@@ -243,7 +243,7 @@
         "watercolour"
       ],
       "medium": "Watercolour on black paper",
-      "size": "A6 size",
+      "size": "A6",
       "takenRaw": "",
       "sourceImages": [
         "18106470298747369.heic"
@@ -288,7 +288,7 @@
         "watercolourart"
       ],
       "medium": "Watercolour on black paper",
-      "size": "10.5x14.8 cm",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "17854226916584718.heic"
@@ -336,7 +336,7 @@
         "watercolourpaintings"
       ],
       "medium": "Watercolour on black paper",
-      "size": "postcard size",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "18184636510336861.jpg"
@@ -384,7 +384,7 @@
         "watercolour"
       ],
       "medium": "Watercolour on black paper",
-      "size": "postcard size",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "18042339107382928.jpg"
@@ -423,7 +423,7 @@
       "caption": "The Triangulum Galaxy (M33)",
       "hashtags": [],
       "medium": "Watercolour on black paper",
-      "size": "postcard size",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "18014592155603929.jpg"
@@ -462,7 +462,7 @@
       "caption": "Andromeda Galaxy (M31)",
       "hashtags": [],
       "medium": "Watercolour on paper",
-      "size": "postcard size",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "17921554662153761.jpg"
@@ -509,7 +509,7 @@
         "watercolour"
       ],
       "medium": "Watercolour",
-      "size": "14.8 x 10.5 cm",
+      "size": "14.8 × 10.5 cm",
       "takenRaw": "",
       "sourceImages": [
         "18042746882316907.jpg"
@@ -558,7 +558,7 @@
         "watercolour"
       ],
       "medium": "Watercolour",
-      "size": "14.8 x 10.5cm",
+      "size": "14.8 × 10.5 cm",
       "takenRaw": "",
       "sourceImages": [
         "17843597979334292.jpg"
@@ -590,56 +590,10 @@
       ]
     },
     {
-      "slug": "another-guinea-pig",
-      "title": "Another guinea pig",
-      "section": "other",
-      "order": 13,
-      "caption": "Another guinea pig!",
-      "hashtags": [
-        "animalpainting",
-        "art",
-        "guineapig",
-        "guineapigs",
-        "painting",
-        "watercolour"
-      ],
-      "medium": "Watercolour",
-      "size": "10.5 x 14.8 cm",
-      "takenRaw": "",
-      "sourceImages": [
-        "18123778063380671.jpg"
-      ],
-      "images": [
-        {
-          "w": 1080,
-          "h": 735,
-          "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAOABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDcvdPjlVWto443YZ8w9AK5y7E1rcPFLyR3xww9a0NJ1U7hFKGZlHyH0B6g/iKvXcNpdsrSwtuUYBU44qZVprS4KnDexkRTRonz7Sx5NFW5r2wspPJ+yk4Gc4B/nRXWsRdXaOR4fXc//9k=",
-          "thumb": {
-            "jpg": "images/thumb/another-guinea-pig.jpg",
-            "webp": "images/thumb/another-guinea-pig.webp",
-            "w": 640,
-            "h": 436
-          },
-          "display": {
-            "jpg": "images/display/another-guinea-pig.jpg",
-            "webp": "images/display/another-guinea-pig.webp",
-            "w": 1080,
-            "h": 735
-          },
-          "full": {
-            "jpg": "images/full/another-guinea-pig.jpg",
-            "webp": "images/full/another-guinea-pig.webp",
-            "w": 1080,
-            "h": 735
-          }
-        }
-      ]
-    },
-    {
       "slug": "a-guinea-pig",
       "title": "A guinea pig",
       "section": "other",
-      "order": 14,
+      "order": 13,
       "caption": "A guinea pig!",
       "hashtags": [
         "art",
@@ -648,7 +602,7 @@
         "watercolour"
       ],
       "medium": "Watercolour",
-      "size": "10.5 x 14.8 cm",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "18036178498996164.jpg"
@@ -680,6 +634,52 @@
       ]
     },
     {
+      "slug": "another-guinea-pig",
+      "title": "Another guinea pig",
+      "section": "other",
+      "order": 14,
+      "caption": "Another guinea pig!",
+      "hashtags": [
+        "animalpainting",
+        "art",
+        "guineapig",
+        "guineapigs",
+        "painting",
+        "watercolour"
+      ],
+      "medium": "Watercolour",
+      "size": "10.5 × 14.8 cm",
+      "takenRaw": "",
+      "sourceImages": [
+        "18123778063380671.jpg"
+      ],
+      "images": [
+        {
+          "w": 1080,
+          "h": 735,
+          "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAOABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDcvdPjlVWto443YZ8w9AK5y7E1rcPFLyR3xww9a0NJ1U7hFKGZlHyH0B6g/iKvXcNpdsrSwtuUYBU44qZVprS4KnDexkRTRonz7Sx5NFW5r2wspPJ+yk4Gc4B/nRXWsRdXaOR4fXc//9k=",
+          "thumb": {
+            "jpg": "images/thumb/another-guinea-pig.jpg",
+            "webp": "images/thumb/another-guinea-pig.webp",
+            "w": 640,
+            "h": 436
+          },
+          "display": {
+            "jpg": "images/display/another-guinea-pig.jpg",
+            "webp": "images/display/another-guinea-pig.webp",
+            "w": 1080,
+            "h": 735
+          },
+          "full": {
+            "jpg": "images/full/another-guinea-pig.jpg",
+            "webp": "images/full/another-guinea-pig.webp",
+            "w": 1080,
+            "h": 735
+          }
+        }
+      ]
+    },
+    {
       "slug": "the-whirlpool-galaxy-m51",
       "title": "The Whirlpool Galaxy (M51)",
       "section": "deepsky",
@@ -696,7 +696,7 @@
         "whirlpoolgalaxy"
       ],
       "medium": "Watercolour",
-      "size": "10.5 x 14.8 cm",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "",
       "sourceImages": [
         "17956171559717885.jpg"
@@ -743,7 +743,7 @@
         "watercolour"
       ],
       "medium": "Watercolour",
-      "size": "17x17 cm",
+      "size": "17 × 17 cm",
       "takenRaw": "",
       "sourceImages": [
         "17976912746640448.jpg",
@@ -882,8 +882,8 @@
       ]
     },
     {
-      "slug": "theodoros-a-legendary-frog",
-      "title": "Theodoros, a legendary frog",
+      "slug": "theodoros-the-frog",
+      "title": "Theodoros the frog",
       "section": "other",
       "order": 19,
       "caption": "Theodoros, a legendary frog",
@@ -892,7 +892,7 @@
         "watercolour"
       ],
       "medium": "Watercolour",
-      "size": "12x12cm",
+      "size": "12 × 12 cm",
       "takenRaw": "",
       "sourceImages": [
         "18011479976048402.jpg"
@@ -903,20 +903,20 @@
           "h": 1440,
           "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCS5kuJ9V8tJSJMcYOQo+lTWcl3DeCK8VXSbIXp8pA/+tTdPSOBmedTI78lo8Aj261Lez25RGiWUyRsGUSKR+vSsnF22IVRXvcTVIQ06EIBlPT3NFUrrUnldS1u6kLjGfc0UlF2L9pHuU45S4OVX5UGMcU5ZnQNtJGBnqaKK1RxdStNdNKwZkQHGOAR3ooooNkkf//Z",
           "thumb": {
-            "jpg": "images/thumb/theodoros-a-legendary-frog.jpg",
-            "webp": "images/thumb/theodoros-a-legendary-frog.webp",
+            "jpg": "images/thumb/theodoros-the-frog.jpg",
+            "webp": "images/thumb/theodoros-the-frog.webp",
             "w": 640,
             "h": 640
           },
           "display": {
-            "jpg": "images/display/theodoros-a-legendary-frog.jpg",
-            "webp": "images/display/theodoros-a-legendary-frog.webp",
+            "jpg": "images/display/theodoros-the-frog.jpg",
+            "webp": "images/display/theodoros-the-frog.webp",
             "w": 1440,
             "h": 1440
           },
           "full": {
-            "jpg": "images/full/theodoros-a-legendary-frog.jpg",
-            "webp": "images/full/theodoros-a-legendary-frog.webp",
+            "jpg": "images/full/theodoros-the-frog.jpg",
+            "webp": "images/full/theodoros-the-frog.webp",
             "w": 1440,
             "h": 1440
           }
@@ -1163,7 +1163,7 @@
         "watercolour"
       ],
       "medium": "Watercolour",
-      "size": "A2 size",
+      "size": "A2",
       "takenRaw": "",
       "sourceImages": [
         "17991007885468360.webp",

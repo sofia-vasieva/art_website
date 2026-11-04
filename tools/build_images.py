@@ -74,13 +74,51 @@ def placeholder(im):
     return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
+def up_to_date(entry):
+    """True if this entry's derivatives already exist on disk."""
+    if len(entry.get("images") or []) != len(entry["sourceImages"]):
+        return False
+    for rec in entry["images"]:
+        for name in SIZES:
+            if name not in rec:
+                return False
+            for key in ("jpg", "webp"):
+                if not os.path.exists(os.path.join(HERE, rec[name][key])):
+                    return False
+    return True
+
+
+def prune_orphans(data):
+    """Delete derivatives no longer referenced by gallery.json."""
+    keep = set()
+    for entry in data["entries"]:
+        for rec in entry["images"]:
+            for name in SIZES:
+                for key in ("jpg", "webp"):
+                    keep.add(os.path.normpath(rec[name][key]))
+    removed = 0
+    for name in SIZES:
+        d = os.path.join(HERE, "images", name)
+        for f in os.listdir(d):
+            rel = os.path.normpath(os.path.join("images", name, f))
+            if rel not in keep:
+                os.remove(os.path.join(d, f))
+                removed += 1
+    if removed:
+        print("pruned %d orphaned image file(s)" % removed)
+
+
 def main():
+    force = "--force" in sys.argv
     data = json.load(open(GALLERY, encoding="utf-8"))
     for d in SIZES:
         os.makedirs(os.path.join(HERE, "images", d), exist_ok=True)
 
-    total = 0
+    total = skipped = 0
     for entry in data["entries"]:
+        if not force and up_to_date(entry):
+            skipped += 1
+            continue
         entry["images"] = []
         for idx, src_name in enumerate(entry["sourceImages"], start=1):
             path = locate(src_name)
@@ -110,6 +148,8 @@ def main():
             entry["images"].append(rec)
             total += 1
 
+    prune_orphans(data)
+
     with open(GALLERY, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
@@ -118,8 +158,8 @@ def main():
         for d in SIZES
         for dp, _, fs in os.walk(os.path.join(HERE, "images", d))
         for f in fs) / 1e6
-    print("\n%d source images -> %d files, %.1f MB total"
-          % (total, total * len(SIZES) * 2, size_mb))
+    print("\n%d image(s) built, %d entries already up to date" % (total, skipped))
+    print("images/ now %.1f MB  (pass --force to rebuild everything)" % size_mb)
 
 
 if __name__ == "__main__":

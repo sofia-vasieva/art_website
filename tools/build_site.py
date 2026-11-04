@@ -195,6 +195,14 @@ def main():
     idx = build_index(data)
     print("wrote %s" % os.path.relpath(idx, HERE))
 
+    wanted = {x["slug"] + ".html" for x in data["entries"]}
+    pdir = os.path.join(HERE, "paintings")
+    stale = [f for f in os.listdir(pdir) if f.endswith(".html") and f not in wanted]
+    for f in stale:
+        os.remove(os.path.join(pdir, f))
+    if stale:
+        print("pruned %d stale page(s): %s" % (len(stale), ", ".join(stale)))
+
     n = 0
     for key, _label, _note in SECTIONS:
         sel = [x for x in data["entries"] if x["section"] == key]

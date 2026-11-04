@@ -38,6 +38,31 @@ The project folder is already a git repository with everything committed.
 
 If GitHub Desktop instead offers "Publish branch", click that.
 
+### If publishing fails with "API error … (500)"
+
+A 500 is a fault on GitHub's side, not a mistake in your setup — GitHub Desktop
+asked GitHub to create the repository and GitHub errored. Try in this order:
+
+1. **Click Publish repository again.** These are often transient.
+2. **Re-authenticate.** GitHub Desktop → **File → Options → Accounts →
+   Sign out**, then sign back in. A stale token can surface as a 500.
+3. **Create the repository yourself and skip Desktop's creation step** — the
+   reliable route:
+   - Go to <https://github.com/new>, name it `art_website`, **Public**, and
+     tick nothing else. Create it.
+   - GitHub then shows a page headed *"…or push an existing repository from
+     the command line"* with two commands. In this project folder,
+     Shift+right-click → **Open PowerShell window here**, and run them:
+
+     ```
+     git remote add origin https://github.com/YOURNAME/art_website.git
+     git push -u origin main
+     ```
+
+   - A browser window may open to authorise. Allow it.
+   - Back in GitHub Desktop the repository now shows a remote, and future
+     changes just need **Push origin**.
+
 **Check it worked:** reload your repository page on github.com. You should see
 `index.html`, `assets/`, `images/`, `paintings/` and `tools/`.
 
