@@ -1,0 +1,12 @@
+# The raw Instagram export is NOT published.
+# posts_1.html embeds Android device IDs and camera firmware strings.
+posts/
+
+# High-resolution originals stay local (keeps the repo small, and raw camera
+# files carry GPS metadata). Only the processed images/ derivatives are public.
+originals/
+
+*.zip
+Thumbs.db
+desktop.ini
+.DS_Store
