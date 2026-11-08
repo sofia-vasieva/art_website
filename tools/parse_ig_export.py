@@ -62,8 +62,15 @@ MERGE_INTO = {"17970471571710256.webp": "17991007885468360.webp"}
 # not paintings; kept out of the gallery
 EXCLUDE = {"18100029988294296.webp": "introduction post - offered as about-section source"}
 
-# Sofia asked for "postcard size" to read as the actual A6 measurements.
-SIZE_NORMALISE = {"postcard size": "10.5 × 14.8 cm"}
+# Sofia prefers real measurements over paper-size names. Keys are matched
+# against the already-tidied size, lowercased.
+SIZE_NORMALISE = {
+    "postcard size": "10.5 × 14.8 cm",
+    "a6": "10.5 × 14.8 cm",
+    "a5": "14.8 × 21 cm",
+    "a4": "21 × 29.7 cm",
+    "a2": "42 × 59.4 cm",
+}
 
 # pairs of slugs whose positions in the gallery are swapped
 SWAP_ORDER = [("a-guinea-pig", "another-guinea-pig")]
@@ -137,8 +144,9 @@ def find_medium_and_size(cap):
         medium = (medium + " on paper").strip()
     m = SIZE_RE.search(cap)
     size = re.sub(r"\s+", " ", m.group(1).strip()) if m else ""
-    size = SIZE_NORMALISE.get(size.lower(), size)
-    return medium, tidy_size(size)
+    # tidy first so the lookup keys are canonical ("A6 size" -> "A6")
+    size = tidy_size(size)
+    return medium, SIZE_NORMALISE.get(size.lower(), size)
 
 
 def tidy_size(size):
