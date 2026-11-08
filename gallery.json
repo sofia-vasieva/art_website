@@ -3,6 +3,13 @@
   "copyright": "© Sofia Vasieva 2024–2026. Please do not reproduce without permission.",
   "youtube": "https://youtube.com/@raysescaping4526",
   "instagram": "https://www.instagram.com/rays.escaping/",
+  "elsewhere": [
+    {
+      "text": "I also put music out",
+      "label": "sofiavasievamusic.com",
+      "url": "https://sofiavasievamusic.com"
+    }
+  ],
   "about": "",
   "entries": [
     {
@@ -20,7 +27,7 @@
       ],
       "medium": "Watercolour on paper",
       "size": "10.5 × 14.8 cm",
-      "takenRaw": "",
+      "takenRaw": "2025:09:10 09:51:34",
       "sourceImages": [
         "18077009021742341.jpg"
       ],
@@ -65,7 +72,7 @@
       ],
       "medium": "Watercolour on paper",
       "size": "14.8 × 21 cm",
-      "takenRaw": "",
+      "takenRaw": "2026:10:06 09:05:22",
       "sourceImages": [
         "18077769806740616.jpg"
       ],
@@ -155,7 +162,7 @@
       ],
       "medium": "Watercolour on paper",
       "size": "10.5 × 14.8 cm",
-      "takenRaw": "",
+      "takenRaw": "2026:09:20 14:22:27",
       "sourceImages": [
         "18352826488219962.jpg"
       ],
@@ -200,7 +207,7 @@
       ],
       "medium": "Watercolour on black paper",
       "size": "10.5 × 14.8 cm",
-      "takenRaw": "",
+      "takenRaw": "2026:04:25 09:56:18",
       "sourceImages": [
         "17994646487943628.jpg"
       ],
@@ -337,7 +344,7 @@
       ],
       "medium": "Watercolour on black paper",
       "size": "10.5 × 14.8 cm",
-      "takenRaw": "",
+      "takenRaw": "2025:09:11 11:47:08",
       "sourceImages": [
         "18184636510336861.jpg"
       ],
@@ -385,7 +392,7 @@
       ],
       "medium": "Watercolour on black paper",
       "size": "10.5 × 14.8 cm",
-      "takenRaw": "",
+      "takenRaw": "2025:09:11 12:54:19",
       "sourceImages": [
         "18042339107382928.jpg"
       ],
@@ -424,7 +431,7 @@
       "hashtags": [],
       "medium": "Watercolour on black paper",
       "size": "10.5 × 14.8 cm",
-      "takenRaw": "",
+      "takenRaw": "2025:09:12 08:50:01",
       "sourceImages": [
         "18014592155603929.jpg"
       ],
@@ -463,7 +470,7 @@
       "hashtags": [],
       "medium": "Watercolour on paper",
       "size": "10.5 × 14.8 cm",
-      "takenRaw": "",
+      "takenRaw": "2025:09:13 16:11:54",
       "sourceImages": [
         "17921554662153761.jpg"
       ],
@@ -843,8 +850,8 @@
       ]
     },
     {
-      "slug": "a-portrait",
-      "title": "A portrait",
+      "slug": "a-walk",
+      "title": "A walk",
       "section": "other",
       "order": 18,
       "caption": "Painted this for my brother’s birthday earlier this year, inspired by a photo of my little nephew.",
@@ -861,20 +868,20 @@
           "h": 1818,
           "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAUABADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDPh012kxJlQOpxUk8cp+SGMqg6H1rqNqOMoF2+uQahkWOMHC9qu5mcwZGHelYlWYBjx70UVyExP//Z",
           "thumb": {
-            "jpg": "images/thumb/a-portrait.jpg",
-            "webp": "images/thumb/a-portrait.webp",
+            "jpg": "images/thumb/a-walk.jpg",
+            "webp": "images/thumb/a-walk.webp",
             "w": 507,
             "h": 640
           },
           "display": {
-            "jpg": "images/display/a-portrait.jpg",
-            "webp": "images/display/a-portrait.webp",
+            "jpg": "images/display/a-walk.jpg",
+            "webp": "images/display/a-walk.webp",
             "w": 1267,
             "h": 1600
           },
           "full": {
-            "jpg": "images/full/a-portrait.jpg",
-            "webp": "images/full/a-portrait.webp",
+            "jpg": "images/full/a-walk.jpg",
+            "webp": "images/full/a-walk.webp",
             "w": 1440,
             "h": 1818
           }
@@ -992,7 +999,7 @@
       ],
       "medium": "Watercolour",
       "size": "",
-      "takenRaw": "",
+      "takenRaw": "2022:07:26 14:57:09",
       "sourceImages": [
         "18220254061150432.webp"
       ],
@@ -1043,7 +1050,7 @@
       ],
       "medium": "Watercolour",
       "size": "A5",
-      "takenRaw": "",
+      "takenRaw": "2022:03:05 19:21:44",
       "sourceImages": [
         "17855536445761020.webp"
       ],
@@ -1239,7 +1246,7 @@
       ],
       "medium": "Watercolour",
       "size": "",
-      "takenRaw": "",
+      "takenRaw": "2022:07:17 19:26:31",
       "sourceImages": [
         "17968986481731950.webp"
       ],
@@ -1289,7 +1296,7 @@
       ],
       "medium": "Watercolour",
       "size": "A5",
-      "takenRaw": "",
+      "takenRaw": "2022:07:17 19:26:16",
       "sourceImages": [
         "17937878366333633.webp"
       ],
@@ -1340,7 +1347,7 @@
       ],
       "medium": "Watercolour",
       "size": "",
-      "takenRaw": "",
+      "takenRaw": "2022:04:24 15:17:56",
       "sourceImages": [
         "17969617705730105.webp"
       ],
@@ -1386,7 +1393,7 @@
       ],
       "medium": "Watercolour",
       "size": "",
-      "takenRaw": "",
+      "takenRaw": "2022:07:22 15:04:15",
       "sourceImages": [
         "17943810971147949.webp"
       ],

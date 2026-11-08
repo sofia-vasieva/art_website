@@ -46,7 +46,12 @@ TITLES = {
     "18011479976048402.jpg": ("Theodoros the frog", "theodoros", "other"),
     "17937878366333633.webp": ("Northern lights over Chocorua Lake", "northern lights", "other"),
     "17943810971147949.webp": ("Sunset", "sunset", "other"),
-    "18003102209336565.jpg": ("A portrait", "nephew", "other"),
+    # Author-chosen title, not derived from the caption. The painting is a
+    # landscape -- a child walking up a path through a field under a sky that
+    # goes from daylight to stars -- which the caption never says. Sofia named
+    # it. `verify` still anchors the entry to the right post; don't "correct"
+    # the title back towards the caption wording.
+    "18003102209336565.jpg": ("A walk", "nephew", "other"),
     # process
     "17901750338543138.webp": ("Watercolour tip: starting a galaxy", "watercolour tip", "process"),
 }
@@ -170,7 +175,14 @@ def main():
     posts = []
     for b in blocks:
         h2 = re.search(r"(?s)<h2[^>]*>(.*?)</h2>", b)
-        taken = re.search(r"<div>(\d{4}:\d{2}:\d{2} \d{2}:\d{2}:\d{2})</div>", b)
+        # The date sits one level deeper than the label:
+        #   <div class="_a6-q">Дата</div><div><div class="_a6-q">2025:09:10 …
+        # Only about a third of posts carry one, and it is the photo's capture
+        # date, not the post date -- so it is NOT a reliable sort key. It is
+        # kept because an exact match identifies the same photograph when
+        # swapping in high-resolution originals (see DEFERRED.md).
+        taken = re.search(
+            r'<div class="_a6-q">(\d{4}:\d{2}:\d{2} \d{2}:\d{2}:\d{2})</div>', b)
         posts.append({
             "media": [m.split("/")[-1] for m in
                       re.findall(r'href="media/posts/([^"]+)"', b)],
@@ -232,6 +244,14 @@ def main():
         "copyright": "© Sofia Vasieva 2024–2026. Please do not reproduce without permission.",
         "youtube": "https://youtube.com/@raysescaping4526",
         "instagram": "https://www.instagram.com/rays.escaping/",
+        # Quiet footer asides to Sofia's other sites. One line each; the block
+        # disappears if the list is empty. Add the science site here when
+        # sofiavasieva.com exists -- no code change needed.
+        "elsewhere": [
+            {"text": "I also put music out",
+             "label": "sofiavasievamusic.com",
+             "url": "https://sofiavasievamusic.com"},
+        ],
         "about": "",
         "entries": entries,
     }

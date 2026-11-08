@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GALLERY = os.path.join(HERE, "gallery.json")
 
 TAGLINE = ("Watercolour paintings of galaxies, nebulae and other deep-sky "
-           "objects.")
+           "objects — and occasionally something closer to home.")
 
 # (key, heading, note, published)
 # Unpublished sections keep their entries in gallery.json and their built
@@ -51,13 +51,17 @@ def head(title, desc, prefix, extra=""):
 
 def foot(data, prefix, with_js=False):
     js = '<script src="%sassets/app.js" defer></script>' % prefix if with_js else ""
+    aside = "".join(
+        '<p class="elsewhere">%s &mdash; <a href="%s">%s</a></p>'
+        % (e(x["text"]), e(x["url"]), e(x["label"]))
+        for x in data.get("elsewhere") or [])
     return """<footer class="site-foot"><div class="wrap">
 <p>%s</p>
 <p><a href="%s">Instagram</a> &nbsp;&middot;&nbsp; <a href="%s">YouTube</a></p>
-</div></footer>
+%s</div></footer>
 %s</body>
 </html>
-""" % (e(data["copyright"]), e(data["instagram"]), e(data["youtube"]), js)
+""" % (e(data["copyright"]), e(data["instagram"]), e(data["youtube"]), aside, js)
 
 
 def meta_line(entry):
@@ -66,15 +70,17 @@ def meta_line(entry):
 
 
 def card(entry, prefix):
+    # Cards sit in fixed square cells and the image is contained, not cropped,
+    # so no inline aspect-ratio or blurred placeholder is needed: the cell
+    # already reserves the space, and a cover-scaled LQIP would show through
+    # the letterboxing.
     im = entry["images"][0]
-    ratio = (im["h"] / im["w"] * 100) if im["w"] else 75
     alt = "%s, watercolour painting by Sofia Vasieva" % entry["title"]
     return """<a class="card" href="%spaintings/%s.html"
    data-display="%s%s" data-title="%s" data-alt="%s">
   <picture>
     <source type="image/webp" srcset="%s%s">
-    <img class="card-img" src="%s%s" width="%d" height="%d" alt="%s" loading="lazy"
-         style="background-image:url(%s);aspect-ratio:%d/%d">
+    <img class="card-img" src="%s%s" width="%d" height="%d" alt="%s" loading="lazy">
   </picture>
   <div class="card-body">
     <h3 class="card-title">%s</h3>
@@ -85,7 +91,6 @@ def card(entry, prefix):
        prefix, e(im["display"]["jpg"]), e(entry["title"]), e(alt),
        prefix, e(im["thumb"]["webp"]),
        prefix, e(im["thumb"]["jpg"]), im["thumb"]["w"], im["thumb"]["h"], e(alt),
-       im["lqip"], im["w"], im["h"],
        e(entry["title"]), meta_line(entry) or "&nbsp;")
 
 

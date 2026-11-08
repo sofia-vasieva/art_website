@@ -140,7 +140,6 @@ files carry GPS coordinates.
 
 | Item | Question |
 |---|---|
-| **"A portrait"** | An A4 painting of Sofia's nephew, currently published under *Other work*. Already public on Instagram, but a child's portrait on a CV-linked site is a different context. Her call; undecided. |
 | **"Hierarchical Bubble Structure"** | Her caption names no object, so the title came from her own hashtag `#hierarchicalbubblestructure`. May want renaming. |
 | **NGC 1501 size** | Shows `A6` while the postcard-sized pieces now show `10.5 × 14.8 cm` — the same dimensions. Offered to unify; no answer yet. |
 | **Contact details** | None on the site. An academic email would be reasonable; a personal address or phone number would not. |

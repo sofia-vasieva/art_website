@@ -50,8 +50,8 @@ These persist across sessions. Do not relax them without her saying so.
 Four things were deliberately postponed, with full context preserved there:
 the **About text** (highest value to a PhD reader, and Sofia's to write), the
 **Process section**, **reference astrophotos**, and **Phase 2 high-resolution
-images**. Plus smaller undecided items: whether "A portrait" (her nephew) stays
-public, the "Hierarchical Bubble Structure" title, and the NGC 1501 size format.
+images**. Plus smaller undecided items: the "Hierarchical Bubble Structure"
+title and the NGC 1501 size format.
 
 Do not treat any of these as oversights to fix unprompted.
 
@@ -124,6 +124,20 @@ the state is visible on every build.
 ---
 
 ## Gotchas
+
+**Gallery order is the Instagram export order — newest first. Do not sort by
+`takenRaw`.** Only 14 of 29 entries have a date, and it is the photo's *capture*
+date, not the post date, so the sequence isn't even monotonic (Cosmic Reef is
+dated 2025, Sunflower 2026, yet Sunflower is the newer post). Export order is
+the trustworthy chronology. `takenRaw` exists solely to identify the same
+photograph when swapping in high-resolution originals.
+
+**The gallery must read row by row.** It originally used CSS `column-count`
+masonry, which flows down each column — so with 22 deep-sky pieces in 3 columns
+the oldest seven landed at the top of the right-hand column, which Sofia
+noticed. It is now a real grid with square cells and `object-fit: contain`
+(nothing cropped). If you change the layout, preserve left-to-right,
+top-to-bottom reading order.
 
 **`posts/` must never be committed.** `posts_1.html` embeds two Android device
 IDs (`android-5202d9a0…`, `android-65e5c4be…`) and camera firmware strings, 19

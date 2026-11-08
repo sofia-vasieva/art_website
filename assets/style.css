@@ -116,20 +116,26 @@ img { display: block; max-width: 100%; height: auto; }
   font-size: 0.95rem;
 }
 
-/* ---------- gallery grid (CSS columns = masonry, no JS) ---------- */
+/* ---------- gallery grid ----------
+   A real grid, not CSS columns. Column masonry flows top-to-bottom down each
+   column, which put the oldest work at the top of the right-hand column. A
+   grid reads left-to-right, row by row, so the gallery stays in date order
+   (newest first) as you scroll.
+   Cells are square and images are contained rather than cropped, so mixed
+   portrait and landscape pieces sit in tidy rows with nothing cut off. */
 
 .grid {
-  column-count: 3;
-  column-gap: var(--gap);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
 }
 
-@media (max-width: 900px) { .grid { column-count: 2; } }
-@media (max-width: 560px) { .grid { column-count: 1; } }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
 
 .card {
-  break-inside: avoid;
-  margin: 0 0 var(--gap);
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   background: var(--bg-soft);
   border: 1px solid var(--line);
@@ -141,13 +147,19 @@ img { display: block; max-width: 100%; height: auto; }
 .card:hover { transform: translateY(-3px); border-color: #39405a; }
 .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+.card picture { display: block; }
+
 .card-img {
   width: 100%;
-  background-size: cover;
-  background-position: center;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: #05060b;
 }
 
-.card-body { padding: 0.95rem 1.05rem 1.1rem; }
+.card-body {
+  padding: 0.95rem 1.05rem 1.1rem;
+  flex: 1;
+}
 
 .card-title {
   font-family: var(--serif);
@@ -253,6 +265,25 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 .site-foot a { color: var(--muted); }
+
+/* a quiet aside to Sofia's other sites, not a navigation item */
+.site-foot .elsewhere {
+  margin-top: 1.3rem;
+  color: var(--faint);
+}
+
+.site-foot .elsewhere a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+  transition: color 0.18s, border-color 0.18s;
+}
+
+.site-foot .elsewhere a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
 
 /* ---------- lightbox ---------- */
 
