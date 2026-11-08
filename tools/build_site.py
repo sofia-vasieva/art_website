@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GALLERY = os.path.join(HERE, "gallery.json")
 
 TAGLINE = ("Watercolour paintings of galaxies, nebulae and other deep-sky "
-           "objects — and occasionally something closer to home.")
+           "objects (and occasionally something closer to home).")
 
 # (key, heading, note, published)
 # Unpublished sections keep their entries in gallery.json and their built
