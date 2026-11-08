@@ -16,11 +16,19 @@ GALLERY = os.path.join(HERE, "gallery.json")
 TAGLINE = ("Watercolour paintings of galaxies, nebulae and other deep-sky "
            "objects.")
 
+# (key, heading, note, published)
+# Unpublished sections keep their entries in gallery.json and their built
+# images, but render no cards, no nav link and no painting pages. Flipping the
+# flag back to True is all that is needed to restore one. See DEFERRED.md.
 SECTIONS = [
-    ("deepsky", "Deep sky", ""),
-    ("other", "Other work", ""),
-    ("process", "Process", "How some of these are built up."),
+    ("deepsky", "Deep sky", "", True),
+    ("other", "Other work", "", True),
+    # Deferred: one lone technique post looks thin. Intended to return once the
+    # M101 progress shots and the M51 timelapse are in.
+    ("process", "Process", "How some of these are built up.", False),
 ]
+
+PUBLISHED = [s for s in SECTIONS if s[3]]
 
 
 def e(s):
@@ -92,21 +100,28 @@ def build_index(data):
     entries = data["entries"]
     parts = [head("%s — watercolour paintings of deep-sky objects" % data["artist"],
                   TAGLINE, "")]
+    about = data.get("about", "").strip()
+
+    nav = []
+    for key, label, _note, _pub in PUBLISHED:
+        if any(x["section"] == key for x in entries):
+            nav.append('<a href="#%s">%s</a>' % (e(key), e(label)))
+    if about:
+        nav.append('<a href="#about">About</a>')
+    nav.append('<a href="%s">Instagram</a>' % e(data["instagram"]))
+    nav.append('<a href="%s">YouTube</a>' % e(data["youtube"]))
+
     parts.append("""<header class="site-head"><div class="wrap">
 <h1 class="site-title">%s</h1>
 <p class="site-tagline">%s</p>
 <nav class="site-links">
-  <a href="#deepsky">Deep sky</a>
-  <a href="#other">Other work</a>
-  <a href="#about">About</a>
-  <a href="%s">Instagram</a>
-  <a href="%s">YouTube</a>
+%s
 </nav>
 </div></header>
 <main>
-""" % (e(data["artist"]), e(TAGLINE), e(data["instagram"]), e(data["youtube"])))
+""" % (e(data["artist"]), e(TAGLINE), "\n".join("  " + x for x in nav)))
 
-    for key, label, note in SECTIONS:
+    for key, label, note, _pub in PUBLISHED:
         sel = [x for x in entries if x["section"] == key]
         if not sel:
             continue
@@ -119,15 +134,13 @@ def build_index(data):
         parts += [card(x, "") for x in sel]
         parts.append("</div></div></section>")
 
-    about = data.get("about", "").strip()
-    parts.append('<section class="section" id="about"><div class="wrap">')
-    parts.append('<div class="section-head"><h2>About</h2></div>')
+    # The About section appears only once Sofia has written it. An empty
+    # placeholder reads as unfinished, which is worse than its absence.
     if about:
+        parts.append('<section class="section" id="about"><div class="wrap">')
+        parts.append('<div class="section-head"><h2>About</h2></div>')
         parts.append('<div class="about">%s</div>' % caption_html(about))
-    else:
-        parts.append('<div class="about about-stub">This section is still to be '
-                     'written.</div>')
-    parts.append("</div></section>")
+        parts.append("</div></section>")
     parts.append("</main>")
     parts.append(foot(data, "", with_js=True))
 
@@ -195,16 +208,23 @@ def main():
     idx = build_index(data)
     print("wrote %s" % os.path.relpath(idx, HERE))
 
-    wanted = {x["slug"] + ".html" for x in data["entries"]}
+    live = {k for k, _l, _n, _p in PUBLISHED}
+    wanted = {x["slug"] + ".html" for x in data["entries"]
+              if x["section"] in live}
     pdir = os.path.join(HERE, "paintings")
     stale = [f for f in os.listdir(pdir) if f.endswith(".html") and f not in wanted]
     for f in stale:
         os.remove(os.path.join(pdir, f))
     if stale:
-        print("pruned %d stale page(s): %s" % (len(stale), ", ".join(stale)))
+        print("pruned %d page(s) not published: %s" % (len(stale), ", ".join(stale)))
+
+    held = [x["title"] for x in data["entries"] if x["section"] not in live]
+    if held:
+        print("held back (%s): %s" % (
+            ", ".join(k for k, _l, _n, p in SECTIONS if not p), ", ".join(held)))
 
     n = 0
-    for key, _label, _note in SECTIONS:
+    for key, _label, _note, _pub in PUBLISHED:
         sel = [x for x in data["entries"] if x["section"] == key]
         for i, entry in enumerate(sel):
             build_piece(data, entry,

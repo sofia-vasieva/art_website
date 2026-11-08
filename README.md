@@ -3,7 +3,10 @@
 A small static site for Sofia Vasieva's watercolour paintings. No build system,
 no dependencies at serve time — just HTML, CSS and one small JavaScript file.
 
-See **[PUBLISHING.md](PUBLISHING.md)** for how to put this online.
+- **[PUBLISHING.md](PUBLISHING.md)** — how to put this online.
+- **[DEFERRED.md](DEFERRED.md)** — features held back on purpose, and how to
+  finish them later.
+- **[CLAUDE.md](CLAUDE.md)** — orientation for Claude Code sessions.
 
 ## Structure
 
@@ -45,6 +48,21 @@ Most changes belong in **`gallery.json`** — titles, captions, section
 assignment (`deepsky` / `other` / `process`), and the `about` field. After
 editing it, run `tools/build_site.py` only. Do not re-run the parser, or it
 will overwrite your edits from the Instagram captions again.
+
+## What's shown, and what isn't
+
+The site currently publishes **28 paintings** across *Deep sky* and
+*Other work*. The *Process* section and the *About* text are finished features
+that are deliberately switched off, so the site reads as complete rather than
+half-built. Nothing was deleted:
+
+- **Process** — `SECTIONS` in `tools/build_site.py`, flip `False` to `True`.
+  Its entry and images are still in place.
+- **About** — appears automatically as soon as `about` in `gallery.json` has
+  text in it. There is no placeholder by design.
+
+`build_site.py` prints a `held back (…)` line on every build so nothing gets
+quietly forgotten. Full reasoning in [DEFERRED.md](DEFERRED.md).
 
 ## Notes
 
