@@ -285,24 +285,34 @@ img { display: block; max-width: 100%; height: auto; }
   border-bottom-color: var(--accent);
 }
 
-/* ---------- lightbox ---------- */
+/* ---------- lightbox ----------
+   The painting and its caption appear together: opening a card is meant to be
+   the whole thing, with no "read more" step. */
 
 .lb {
   position: fixed;
   inset: 0;
-  background: rgba(4, 5, 10, 0.96);
+  background: rgba(4, 5, 10, 0.97);
   display: none;
   z-index: 50;
-  padding: 2rem;
+  padding: 2.2rem 4.2rem;
 }
 
-.lb[open-state="1"] { display: flex; flex-direction: column; }
+.lb[open-state="1"] { display: block; }
+
+.lb-body {
+  display: flex;
+  gap: 2.4rem;
+  height: 100%;
+  align-items: stretch;
+}
 
 .lb-stage {
-  flex: 1;
+  flex: 1 1 62%;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
   min-height: 0;
 }
 
@@ -313,18 +323,56 @@ img { display: block; max-width: 100%; height: auto; }
   border-radius: var(--radius);
 }
 
-.lb-bar {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 1.1rem;
-  color: var(--muted);
-  font-size: 0.9rem;
+.lb-info {
+  flex: 0 0 330px;
+  overflow-y: auto;
+  padding-right: 0.4rem;
+  align-self: center;
+  max-height: 100%;
 }
 
-.lb-bar .t { font-family: var(--serif); color: var(--text); font-size: 1.05rem; }
-.lb-bar a { color: var(--accent); text-decoration: none; white-space: nowrap; }
+.lb-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+}
+
+.lb-meta {
+  margin: 0 0 1.4rem;
+  color: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.lb-caption { color: #d4d7e4; font-size: 0.97rem; }
+.lb-caption p { margin: 0 0 1rem; }
+
+.lb-views { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+
+.lb-view {
+  width: 54px;
+  height: 54px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: #05060b;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  padding: 0;
+}
+
+.lb-view[aria-current="true"] { border-color: var(--accent); }
+
+.lb-count {
+  margin: 1.6rem 0 0;
+  color: var(--faint);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+}
 
 .lb-btn {
   position: absolute;
@@ -358,9 +406,39 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .lb-close:hover { color: var(--text); }
 
-@media (max-width: 560px) {
-  .lb { padding: 1rem; }
-  .lb-btn { width: 38px; height: 38px; }
-  .lb-prev { left: 0.4rem; }
-  .lb-next { right: 0.4rem; }
+/* stack the caption under the painting once there isn't room beside it */
+@media (max-width: 860px) {
+  .lb { padding: 3.2rem 1rem 1rem; }
+
+  .lb-body {
+    flex-direction: column;
+    gap: 1.2rem;
+    overflow-y: auto;
+  }
+
+  .lb-stage {
+    flex: 0 0 auto;
+    max-height: 56vh;
+  }
+
+  .lb-info {
+    flex: 0 0 auto;
+    overflow: visible;
+    align-self: stretch;
+    max-height: none;
+    padding-bottom: 2rem;
+  }
+
+  .lb-title { font-size: 1.3rem; }
+
+  .lb-btn {
+    width: 38px;
+    height: 38px;
+    top: auto;
+    bottom: 0.6rem;
+    transform: none;
+  }
+
+  .lb-prev { left: 0.6rem; }
+  .lb-next { right: 0.6rem; }
 }

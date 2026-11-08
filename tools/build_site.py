@@ -69,15 +69,19 @@ def meta_line(entry):
     return " &middot; ".join(e(b) for b in bits)
 
 
+def alt_text(entry):
+    return "%s, watercolour painting by Sofia Vasieva" % entry["title"]
+
+
 def card(entry, prefix):
     # Cards sit in fixed square cells and the image is contained, not cropped,
     # so no inline aspect-ratio or blurred placeholder is needed: the cell
     # already reserves the space, and a cover-scaled LQIP would show through
     # the letterboxing.
+    # Everything the lightbox needs lives in the JSON blob at the end of the
+    # page, keyed by index, rather than in attributes here.
     im = entry["images"][0]
-    alt = "%s, watercolour painting by Sofia Vasieva" % entry["title"]
-    return """<a class="card" href="%spaintings/%s.html"
-   data-display="%s%s" data-title="%s" data-alt="%s">
+    return """<a class="card" href="%spaintings/%s.html">
   <picture>
     <source type="image/webp" srcset="%s%s">
     <img class="card-img" src="%s%s" width="%d" height="%d" alt="%s" loading="lazy">
@@ -88,10 +92,31 @@ def card(entry, prefix):
   </div>
 </a>
 """ % (prefix, e(entry["slug"]),
-       prefix, e(im["display"]["jpg"]), e(entry["title"]), e(alt),
        prefix, e(im["thumb"]["webp"]),
-       prefix, e(im["thumb"]["jpg"]), im["thumb"]["w"], im["thumb"]["h"], e(alt),
+       prefix, e(im["thumb"]["jpg"]), im["thumb"]["w"], im["thumb"]["h"],
+       e(alt_text(entry)),
        e(entry["title"]), meta_line(entry) or "&nbsp;")
+
+
+def lightbox_data(entries):
+    """One JSON blob driving the lightbox, in the same order as the cards.
+
+    Captions travel as arrays of plain paragraph strings; the script inserts
+    them with textContent, so nothing here is parsed as HTML.
+    """
+    out = []
+    for x in entries:
+        bits = [b for b in (x.get("medium"), x.get("size")) if b]
+        out.append({
+            "title": x["title"],
+            "meta": " · ".join(bits),
+            "caption": [p.strip() for p in x["caption"].split("\n") if p.strip()],
+            "alt": alt_text(x),
+            "views": [{"src": im["display"]["jpg"],
+                       "webp": im["display"]["webp"]} for im in x["images"]],
+        })
+    return ('<script type="application/json" id="gallery-data">%s</script>'
+            % json.dumps(out, ensure_ascii=False).replace("</", "<\\/"))
 
 
 def caption_html(text):
@@ -126,10 +151,12 @@ def build_index(data):
 <main>
 """ % (e(data["artist"]), e(TAGLINE), "\n".join("  " + x for x in nav)))
 
+    ordered = []
     for key, label, note, _pub in PUBLISHED:
         sel = [x for x in entries if x["section"] == key]
         if not sel:
             continue
+        ordered += sel
         parts.append('<section class="section" id="%s"><div class="wrap">' % key)
         parts.append('<div class="section-head"><h2>%s</h2><span class="count">%d</span></div>'
                      % (e(label), len(sel)))
@@ -147,6 +174,7 @@ def build_index(data):
         parts.append('<div class="about">%s</div>' % caption_html(about))
         parts.append("</div></section>")
     parts.append("</main>")
+    parts.append(lightbox_data(ordered))
     parts.append(foot(data, "", with_js=True))
 
     path = os.path.join(HERE, "index.html")
