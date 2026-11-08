@@ -23,7 +23,11 @@ These persist across sessions. Do not relax them without her saying so.
    captions. Do not look facts up, and do not fill gaps from general knowledge.
    If a caption doesn't say it, the field stays empty and isn't rendered.
 3. **The About text is hers to write.** Offer prompts; never draft it.
-4. **Ship finished, not half-done.** Unfinished features are held back rather
+4. **Commit and push after every set of changes.** Don't leave work sitting in
+   the working tree — the live site is what she's linking from her CV, so
+   finishing a change means it is on GitHub. Run the `posts/` leak check below
+   before each push.
+5. **Ship finished, not half-done.** Unfinished features are held back rather
    than shown as placeholders or thin sections. See **[DEFERRED.md](DEFERRED.md)**
    before proposing anything "missing" — it is probably deferred on purpose,
    with the reasoning and the restore instructions recorded there.
