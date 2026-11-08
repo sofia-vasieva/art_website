@@ -64,9 +64,20 @@ def foot(data, prefix, with_js=False):
 """ % (e(data["copyright"]), e(data["instagram"]), e(data["youtube"]), aside, js)
 
 
-def meta_line(entry):
-    bits = [b for b in (entry.get("medium"), entry.get("size")) if b]
-    return " &middot; ".join(e(b) for b in bits)
+def meta_bits(entry, with_date):
+    """Medium, size and (on painting pages) the month and year it was posted.
+
+    The date is left off the index cards so the grid stays quiet; it belongs on
+    the painting's own page, where it reads like a gallery label.
+    """
+    bits = [entry.get("medium"), entry.get("size")]
+    if with_date:
+        bits.append(entry.get("posted"))
+    return [b for b in bits if b]
+
+
+def meta_line(entry, with_date=False):
+    return " &middot; ".join(e(b) for b in meta_bits(entry, with_date))
 
 
 def alt_text(entry):
@@ -106,10 +117,9 @@ def lightbox_data(entries):
     """
     out = []
     for x in entries:
-        bits = [b for b in (x.get("medium"), x.get("size")) if b]
         out.append({
             "title": x["title"],
-            "meta": " · ".join(bits),
+            "meta": " · ".join(meta_bits(x, True)),
             "caption": [p.strip() for p in x["caption"].split("\n") if p.strip()],
             "alt": alt_text(x),
             "views": [{"src": im["display"]["jpg"],
@@ -201,10 +211,14 @@ def build_piece(data, entry, prev_e, next_e):
        'loading="lazy"' if i else ""))
 
     parts.append("<h1>%s</h1>" % e(entry["title"]))
-    ml = meta_line(entry)
+    ml = meta_line(entry, with_date=True)
     if ml:
         parts.append('<p class="piece-meta">%s</p>' % ml)
-    parts.append('<div class="piece-caption">%s</div>' % caption_html(entry["caption"]))
+    # Some pieces are shown without their caption (see NO_CAPTION in the
+    # parser); render nothing rather than an empty block.
+    if entry["caption"].strip():
+        parts.append('<div class="piece-caption">%s</div>'
+                     % caption_html(entry["caption"]))
 
     parts.append('<nav class="piece-nav">')
     if prev_e:

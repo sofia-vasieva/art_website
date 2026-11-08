@@ -34,10 +34,10 @@ These persist across sessions. Do not relax them without her saying so.
 
 - Repo: <https://github.com/sofia-vasieva/art_website> — public, branch `main`,
   all commits pushed.
-- **GitHub Pages is NOT enabled yet.** `has_pages: false`; the URL 404s. This is
-  the one remaining step to go live, and only Sofia can do it:
-  Settings → Pages → Deploy from a branch → `main` → `/ (root)`.
-  It will then serve at `https://sofia-vasieva.github.io/art_website/`.
+- **Live** at <https://sofia-vasieva.github.io/art_website/> (Pages enabled,
+  deploying from `main` / `/ (root)`). **This is the URL on Sofia's CV.** When
+  the custom domain is attached, GitHub redirects this URL to it, so the CV
+  stays correct — do not break or rename the repo.
 - Custom domain **`art.sofiavasieva.com`** is planned but not attached — she is
   waiting on a registrar transfer to IONOS. Instructions are in
   [PUBLISHING.md](PUBLISHING.md) §4. Don't add DNS records mid-transfer.
@@ -50,8 +50,8 @@ These persist across sessions. Do not relax them without her saying so.
 Four things were deliberately postponed, with full context preserved there:
 the **About text** (highest value to a PhD reader, and Sofia's to write), the
 **Process section**, **reference astrophotos**, and **Phase 2 high-resolution
-images**. Plus smaller undecided items: the "Hierarchical Bubble Structure"
-title and the NGC 1501 size format.
+images**. Plus one smaller undecided item: the "Hierarchical Bubble Structure"
+title.
 
 Do not treat any of these as oversights to fix unprompted.
 
@@ -89,7 +89,14 @@ titles, captions, section moves and the `about` field, then regenerate.
 discarding hand edits. It does preserve built image records (matched by slug),
 so it won't force an image rebuild. Durable content tweaks belong in the
 script's own tables (`TITLES`, `SIZE_NORMALISE`, `SWAP_ORDER`, `MERGE_INTO`,
-`EXCLUDE`), not in `gallery.json`.
+`EXCLUDE`, `NO_CAPTION`), not in `gallery.json`.
+
+**`NO_CAPTION`** holds slugs shown with medium, size and date but *no* caption
+prose — currently `a-walk`, `sunset`, `a-guinea-pig`, `another-guinea-pig`, at
+Sofia's request (those captions were casual asides). The medium/size is still
+extracted from the caption first, so nothing is lost. `build_site.py` renders no
+caption block at all for these, in both the painting page and the lightbox.
+Unknown slugs in the set fail the build.
 
 `build_images.py` skips entries whose derivatives already exist; pass `--force`
 to rebuild all (~3 minutes). Both build scripts prune orphans, so renaming a
@@ -100,7 +107,7 @@ title (which changes the slug) leaves no stale files behind.
 ```
 artist, copyright, youtube, instagram, about, entries[]
 entry: slug, title, section, order, caption, hashtags, medium, size,
-       takenRaw, sourceImages[], images[]
+       posted, postedISO, takenRaw, sourceImages[], images[]
 images[i]: w, h, lqip, thumb{jpg,webp,w,h}, display{...}, full{...}
 ```
 
@@ -125,12 +132,27 @@ the state is visible on every build.
 
 ## Gotchas
 
-**Gallery order is the Instagram export order — newest first. Do not sort by
-`takenRaw`.** Only 14 of 29 entries have a date, and it is the photo's *capture*
-date, not the post date, so the sequence isn't even monotonic (Cosmic Reef is
-dated 2025, Sunflower 2026, yet Sunflower is the newer post). Export order is
-the trustworthy chronology. `takenRaw` exists solely to identify the same
-photograph when swapping in high-resolution originals.
+**There are two dates per entry, and only one is real.**
+
+- `posted` / `postedISO` — the **post date**, from `<div class="_3-94 _a6-o">` in
+  the export, e.g. `окт 24, 2026 2:37 am`. Present on all 31 posts, strictly
+  descending, and it confirms export order *is* newest-first. This is the one
+  displayed, as month and year only. The parser fails the build if any entry
+  comes out without it.
+- `takenRaw` — the EXIF **capture** date of the photograph. Only 14 of 29 have
+  one and it is not monotonic. **Never display or sort by it.** It exists solely
+  to identify the same photograph when swapping in high-resolution originals.
+
+Gallery order still follows `order` (export order), not a date sort. The two now
+agree, but `order` is what the code uses and what `SWAP_ORDER` adjusts.
+
+The export UI is Russian, so month names are parsed through `RU_MONTHS` in the
+parser.
+
+**Dates show on painting pages and in the lightbox, not on the index cards** —
+`meta_bits(entry, with_date)` in `build_site.py` controls this, so the grid stays
+quiet while each piece's own page carries a full gallery label
+(medium · size · month year).
 
 **The gallery must read row by row.** It originally used CSS `column-count`
 masonry, which flows down each column — so with 22 deep-sky pieces in 3 columns
@@ -140,9 +162,16 @@ noticed. It is now a real grid with square cells and `object-fit: contain`
 top-to-bottom reading order.
 
 **`posts/` must never be committed.** `posts_1.html` embeds two Android device
-IDs (`android-5202d9a0…`, `android-65e5c4be…`) and camera firmware strings, 19
-occurrences. It is gitignored. Verify before any push:
-`git grep -l "android-5202d9a0" HEAD`
+IDs and camera firmware strings, 19 occurrences. It is gitignored. Verify before
+any push — this must print nothing:
+
+```bash
+git grep -lE "android-[0-9a-f]{16}" HEAD
+```
+
+The IDs themselves are deliberately not quoted here: this file is public, and an
+earlier version pasted a prefix of one into it, which both leaked it and made the
+check match itself. Read them out of `posts/posts_1.html` if you ever need them.
 
 **Instagram mislabels file extensions.** 12 of the export's files end `.webp` or
 `.heic` but are JPEG inside. `build_images.py` detects true format; never trust

@@ -16,6 +16,30 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 EXPORT = os.path.join(HERE, "posts", "posts_1.html")
 OUT = os.path.join(HERE, "gallery.json")
 
+# The export's UI is in Russian, so its post dates read "окт 24, 2026 2:37 am".
+# Only the month and year are kept -- a painting is dated by when it was made,
+# not to the minute.
+RU_MONTHS = {
+    "янв": (1, "January"), "фев": (2, "February"), "мар": (3, "March"),
+    "апр": (4, "April"), "май": (5, "May"), "июн": (6, "June"),
+    "июл": (7, "July"), "авг": (8, "August"), "сен": (9, "September"),
+    "окт": (10, "October"), "ноя": (11, "November"), "дек": (12, "December"),
+}
+
+
+def parse_post_date(s):
+    """'окт 24, 2026 2:37 am' -> ('October 2026', '2026-10-24'), or ('', '').
+
+    Returns empty strings rather than guessing if the format ever changes, so
+    a missing date simply isn't rendered.
+    """
+    m = re.match(r"\s*([а-я]{3})\s+(\d{1,2}),\s*(\d{4})", s)
+    if not m or m.group(1) not in RU_MONTHS:
+        return "", ""
+    num, name = RU_MONTHS[m.group(1)]
+    return ("%s %s" % (name, m.group(3)),
+            "%s-%02d-%02d" % (m.group(3), num, int(m.group(2))))
+
 # key: first media filename -> (title, verify-substring, section)
 TITLES = {
     "18077009021742341.jpg": ("The Cosmic Reef Nebula", "cosmic reef", "deepsky"),
@@ -73,6 +97,17 @@ SIZE_NORMALISE = {
 }
 
 # pairs of slugs whose positions in the gallery are swapped
+# Slugs whose Instagram caption is dropped: the painting is shown with its
+# medium, size and date only. Sofia's call -- these four captions were casual
+# asides rather than anything she wants on the site. The medium/size line is
+# still extracted from the caption first, so nothing is lost there.
+NO_CAPTION = {
+    "a-walk",
+    "sunset",
+    "a-guinea-pig",
+    "another-guinea-pig",
+}
+
 SWAP_ORDER = [("a-guinea-pig", "another-guinea-pig")]
 
 SIZE_RE = re.compile(
@@ -183,19 +218,26 @@ def main():
     posts = []
     for b in blocks:
         h2 = re.search(r"(?s)<h2[^>]*>(.*?)</h2>", b)
-        # The date sits one level deeper than the label:
+        # EXIF capture date. It sits one level deeper than its label:
         #   <div class="_a6-q">Дата</div><div><div class="_a6-q">2025:09:10 …
-        # Only about a third of posts carry one, and it is the photo's capture
-        # date, not the post date -- so it is NOT a reliable sort key. It is
-        # kept because an exact match identifies the same photograph when
-        # swapping in high-resolution originals (see DEFERRED.md).
+        # Only about a third of posts carry one, and it is when the *photograph*
+        # was taken, which is not the same as when the post went up. Kept only
+        # because an exact match identifies the same photograph when swapping in
+        # high-resolution originals (see DEFERRED.md). Never sort by it.
         taken = re.search(
             r'<div class="_a6-q">(\d{4}:\d{2}:\d{2} \d{2}:\d{2}:\d{2})</div>', b)
+        # The post date, which is what the site displays. Unlike `taken` this is
+        # present on every post and runs strictly newest-first, matching the
+        # export order.
+        posted = re.search(r'<div class="_3-94 _a6-o">([^<]+)</div>', b)
+        shown, iso = parse_post_date(posted.group(1) if posted else "")
         posts.append({
             "media": [m.split("/")[-1] for m in
                       re.findall(r'href="media/posts/([^"]+)"', b)],
             "caption": strip_tags(h2.group(1)) if h2 else "",
             "taken": taken.group(1) if taken else "",
+            "posted": shown,
+            "postedISO": iso,
         })
 
     by_media = {p["media"][0]: p for p in posts}
@@ -228,17 +270,21 @@ def main():
             "title": title,
             "section": section,
             "order": order,
-            "caption": prose,
+            "caption": "" if slug in NO_CAPTION else prose,
             "hashtags": sorted(set(tags)),
             "medium": medium,
             "size": size,
             "takenRaw": p["taken"],
+            "posted": p["posted"],
+            "postedISO": p["postedISO"],
             "sourceImages": media,
             "images": existing.get(slug, []),
         })
 
     # apply requested position swaps, then lock the gallery to `order`
     by_slug = {x["slug"]: x for x in entries}
+    for s in sorted(NO_CAPTION - set(by_slug)):
+        problems.append("NO_CAPTION refers to unknown slug: %s" % s)
     for a, b in SWAP_ORDER:
         if a in by_slug and b in by_slug:
             by_slug[a]["order"], by_slug[b]["order"] = \
@@ -275,9 +321,14 @@ def main():
         sel = [e for e in entries if e["section"] == sec]
         print("[%s]  %d" % (sec, len(sel)))
         for e in sel:
-            print("   %-44s | %-28s | %-14s | %d img" % (
-                e["title"], e["medium"] or "-", e["size"] or "-", len(e["sourceImages"])))
+            print("   %-44s | %-28s | %-14s | %-15s | %d img" % (
+                e["title"], e["medium"] or "-", e["size"] or "-",
+                e["posted"] or "NO DATE", len(e["sourceImages"])))
         print()
+
+    undated = [e["title"] for e in entries if not e["posted"]]
+    if undated:
+        problems.append("no post date parsed for: %s" % ", ".join(undated))
     if problems:
         print("PROBLEMS:")
         for x in problems:
