@@ -102,6 +102,13 @@ extracted from the caption first, so nothing is lost. `build_site.py` renders no
 caption block at all for these, in both the painting page and the lightbox.
 Unknown slugs in the set fail the build.
 
+**`CAPTION_EDITS`** applies literal snips to a caption's prose, slug →
+`[(find, replace)]`. Used to remove the birthday mentions from Sombrero, the
+Eagle Nebula and the early M82 — a gift occasion and a friend's Instagram handle
+aren't for a site PhD panels will read. The build fails if a `find` stops
+matching, and a regex backstop fails it if `birthday`/`bday` survives in any
+entry, so a reworded export can't quietly reinstate one.
+
 `build_images.py` skips entries whose derivatives already exist; pass `--force`
 to rebuild all (~3 minutes). Both build scripts prune orphans, so renaming a
 title (which changes the slug) leaves no stale files behind.

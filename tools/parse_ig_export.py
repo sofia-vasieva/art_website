@@ -108,6 +108,25 @@ NO_CAPTION = {
     "another-guinea-pig",
 }
 
+# Literal snips applied to a caption's prose, slug -> [(find, replace), ...].
+# Sofia asked for the birthday mentions out: a gift occasion (and a friend's
+# Instagram handle) isn't something she wants on a site PhD panels will read.
+# Each snip removes only the birthday clause, keeping what the caption says
+# about the painting itself. The build fails if any `find` no longer matches,
+# so a reworded export can't silently leave a mention in.
+CAPTION_EDITS = {
+    "m104-the-sombrero-galaxy": [
+        (", which I gave to the incredible (!!!) @emma89harris for her"
+         " birthday earlier this year.", "."),
+    ],
+    "m16-the-eagle-nebula": [
+        (" for his birthday.", "."),
+    ],
+    "the-cigar-galaxy-m82-an-early-attempt": [
+        (" I gave this one to a very awesome person for their birthday.", ""),
+    ],
+}
+
 SWAP_ORDER = [("a-guinea-pig", "another-guinea-pig")]
 
 SIZE_RE = re.compile(
@@ -265,6 +284,13 @@ def main():
                 media += by_media[extra]["media"]
 
         slug = slugify(title)
+        for find, repl in CAPTION_EDITS.get(slug, ()):
+            if find not in prose:
+                problems.append("CAPTION_EDITS text not found for %s: %r"
+                                % (slug, find))
+            else:
+                prose = prose.replace(find, repl, 1).strip()
+
         entries.append({
             "slug": slug,
             "title": title,
@@ -285,6 +311,14 @@ def main():
     by_slug = {x["slug"]: x for x in entries}
     for s in sorted(NO_CAPTION - set(by_slug)):
         problems.append("NO_CAPTION refers to unknown slug: %s" % s)
+    for s in sorted(set(CAPTION_EDITS) - set(by_slug)):
+        problems.append("CAPTION_EDITS refers to unknown slug: %s" % s)
+
+    # Backstop for CAPTION_EDITS: nothing that reaches the site may mention a
+    # birthday, however the caption gets reworded upstream.
+    for x in entries:
+        if re.search(r"birthday|bday|b-day", x["caption"], re.I):
+            problems.append("birthday still mentioned in caption: %s" % x["slug"])
     for a, b in SWAP_ORDER:
         if a in by_slug and b in by_slug:
             by_slug[a]["order"], by_slug[b]["order"] = \
