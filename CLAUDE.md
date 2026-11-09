@@ -231,3 +231,30 @@ don't quietly rewrite her prose.
 Match the existing code: plain Python, standard library plus Pillow, no
 cleverness, comments only where intent isn't obvious. Comments explain *why*
 (the device-ID exclusion, the format detection) rather than restating the code.
+
+---
+
+## Overrides for things the captions get wrong
+
+Four tables in `tools/parse_ig_export.py` let Sofia correct the export without
+hand-editing `gallery.json` (which the parser overwrites). All four fail the
+build on an unknown slug.
+
+| Table | Purpose |
+|---|---|
+| `SIZE_OVERRIDE` | a size she gave directly, where the caption named none (`sunset`) |
+| `DATE_OVERRIDE` | `"Month YYYY"`, where the post went up later than the painting was made (both guinea pigs) |
+| `CAPTION_REPLACE` | a caption she rewrote herself, used verbatim instead of the export's; skips `CAPTION_EDITS` for that slug |
+| `CAPTION_EDITS` | literal `(find, replace)` snips on the export's prose |
+
+`SIZE_OVERRIDE` and `DATE_OVERRIDE` are the sanctioned exceptions to standing
+instruction 2. That rule exists so nothing is looked up or guessed — here Sofia
+is the source herself. **Do not "correct" these back to empty** because the
+caption doesn't mention them.
+
+`MERGE_INTO` drops the merged post's title *and* caption. If that caption said
+something worth keeping, carry the sentence onto the target via `CAPTION_EDITS`
+(as the Cigar Galaxy does) and delete the merged slug's own `CAPTION_EDITS`
+entry, or the unknown-slug guard will fail the build. A merge also needs
+`build_images.py` re-run: the target gains a view, and the absorbed entry's
+image files become orphans.
