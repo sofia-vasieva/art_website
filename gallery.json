@@ -637,8 +637,8 @@
       "medium": "Watercolour",
       "size": "10.5 × 14.8 cm",
       "takenRaw": "",
-      "posted": "October 2024",
-      "postedISO": "2024-10-13",
+      "posted": "July 2024",
+      "postedISO": "2024-07",
       "sourceImages": [
         "18036178498996164.jpg"
       ],
@@ -685,8 +685,8 @@
       "medium": "Watercolour",
       "size": "10.5 × 14.8 cm",
       "takenRaw": "",
-      "posted": "October 2024",
-      "postedISO": "2024-10-13",
+      "posted": "July 2024",
+      "postedISO": "2024-07",
       "sourceImages": [
         "18123778063380671.jpg"
       ],
@@ -1208,7 +1208,7 @@
       "title": "M16, the Eagle Nebula",
       "section": "deepsky",
       "order": 25,
-      "caption": "This is M16, the Eagle Nebula (also known as the Pillars of Creation), measuring 42 × 59.4 cm. It is the biggest watercolour painting I have ever created.",
+      "caption": "M16, the Eagle Nebula (also known as the Pillars of Creation), 42 × 59.4 cm. This is my biggest watercolour painting to date.",
       "hashtags": [
         "eaglenebula",
         "m16",
@@ -1280,7 +1280,7 @@
       "title": "The Cigar Galaxy (M82)",
       "section": "deepsky",
       "order": 26,
-      "caption": "After quite a few attempts, I've come to really love painting the Cigar Galaxy. I finished this version last week.",
+      "caption": "After quite a few attempts, I've come to really love painting the Cigar Galaxy. I finished this version last week.\nThis was one of my first attempts at painting M82, the Cigar Galaxy.",
       "hashtags": [
         "art",
         "cigargalaxy",
@@ -1300,7 +1300,8 @@
       "posted": "July 2022",
       "postedISO": "2022-07-22",
       "sourceImages": [
-        "17968986481731950.webp"
+        "17968986481731950.webp",
+        "17969617705730105.webp"
       ],
       "images": [
         {
@@ -1308,22 +1309,45 @@
           "h": 769,
           "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAOABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCnYW893MwAYpnrk4rWl0eFYTJNLtP91TXOx6nd242xuFHtTbi8uLhMM/H1qroVjYtriKFXSInaG7n2FFYkckka4B689aKhq7KR/9k=",
           "thumb": {
-            "jpg": "images/thumb/the-cigar-galaxy-m82.jpg",
-            "webp": "images/thumb/the-cigar-galaxy-m82.webp",
+            "jpg": "images/thumb/the-cigar-galaxy-m82-1.jpg",
+            "webp": "images/thumb/the-cigar-galaxy-m82-1.webp",
             "w": 640,
             "h": 456
           },
           "display": {
-            "jpg": "images/display/the-cigar-galaxy-m82.jpg",
-            "webp": "images/display/the-cigar-galaxy-m82.webp",
+            "jpg": "images/display/the-cigar-galaxy-m82-1.jpg",
+            "webp": "images/display/the-cigar-galaxy-m82-1.webp",
             "w": 1080,
             "h": 769
           },
           "full": {
-            "jpg": "images/full/the-cigar-galaxy-m82.jpg",
-            "webp": "images/full/the-cigar-galaxy-m82.webp",
+            "jpg": "images/full/the-cigar-galaxy-m82-1.jpg",
+            "webp": "images/full/the-cigar-galaxy-m82-1.webp",
             "w": 1080,
             "h": 769
+          }
+        },
+        {
+          "w": 1080,
+          "h": 810,
+          "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAPABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDBtrVriULGpJPoM1sf8I03k+aziMHn/IqnYaymnwbY4AXP3mNLea691CU8wjPtS1uUrNFS8RLacxLIrAdxRVCRgWyH3epopkn/2Q==",
+          "thumb": {
+            "jpg": "images/thumb/the-cigar-galaxy-m82-2.jpg",
+            "webp": "images/thumb/the-cigar-galaxy-m82-2.webp",
+            "w": 640,
+            "h": 480
+          },
+          "display": {
+            "jpg": "images/display/the-cigar-galaxy-m82-2.jpg",
+            "webp": "images/display/the-cigar-galaxy-m82-2.webp",
+            "w": 1080,
+            "h": 810
+          },
+          "full": {
+            "jpg": "images/full/the-cigar-galaxy-m82-2.jpg",
+            "webp": "images/full/the-cigar-galaxy-m82-2.webp",
+            "w": 1080,
+            "h": 810
           }
         }
       ]
@@ -1381,59 +1405,6 @@
       ]
     },
     {
-      "slug": "the-cigar-galaxy-m82-an-early-attempt",
-      "title": "The Cigar Galaxy (M82), an early attempt",
-      "section": "deepsky",
-      "order": 28,
-      "caption": "This was one of my first attempts at painting M82, the Cigar Galaxy.",
-      "hashtags": [
-        "art",
-        "cigargalaxy",
-        "deepskyobject",
-        "galaxy",
-        "galaxypainting",
-        "m82",
-        "messier82",
-        "messierobjects",
-        "painting",
-        "spacepainting",
-        "watercolour"
-      ],
-      "medium": "Watercolour",
-      "size": "",
-      "takenRaw": "2022:04:24 15:17:56",
-      "posted": "July 2022",
-      "postedISO": "2022-07-22",
-      "sourceImages": [
-        "17969617705730105.webp"
-      ],
-      "images": [
-        {
-          "w": 1080,
-          "h": 810,
-          "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAPABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDBtrVriULGpJPoM1sf8I03k+aziMHn/IqnYaymnwbY4AXP3mNLea691CU8wjPtS1uUrNFS8RLacxLIrAdxRVCRgWyH3epopkn/2Q==",
-          "thumb": {
-            "jpg": "images/thumb/the-cigar-galaxy-m82-an-early-attempt.jpg",
-            "webp": "images/thumb/the-cigar-galaxy-m82-an-early-attempt.webp",
-            "w": 640,
-            "h": 480
-          },
-          "display": {
-            "jpg": "images/display/the-cigar-galaxy-m82-an-early-attempt.jpg",
-            "webp": "images/display/the-cigar-galaxy-m82-an-early-attempt.webp",
-            "w": 1080,
-            "h": 810
-          },
-          "full": {
-            "jpg": "images/full/the-cigar-galaxy-m82-an-early-attempt.jpg",
-            "webp": "images/full/the-cigar-galaxy-m82-an-early-attempt.webp",
-            "w": 1080,
-            "h": 810
-          }
-        }
-      ]
-    },
-    {
       "slug": "sunset",
       "title": "Sunset",
       "section": "other",
@@ -1448,7 +1419,7 @@
         "watercoloursunset"
       ],
       "medium": "Watercolour",
-      "size": "",
+      "size": "10.5 × 14.8 cm",
       "takenRaw": "2022:07:22 15:04:15",
       "posted": "July 2022",
       "postedISO": "2022-07-22",

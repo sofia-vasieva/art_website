@@ -149,7 +149,8 @@ the state is visible on every build.
   the export, e.g. `окт 24, 2026 2:37 am`. Present on all 31 posts, strictly
   descending, and it confirms export order *is* newest-first. This is the one
   displayed, as month and year only. The parser fails the build if any entry
-  comes out without it.
+  comes out without it. `DATE_OVERRIDE` (slug → `"Month YYYY"`) wins where Sofia
+  has corrected one — a post can go up months after the painting was made.
 - `takenRaw` — the EXIF **capture** date of the photograph. Only 14 of 29 have
   one and it is not monotonic. **Never display or sort by it.** It exists solely
   to identify the same photograph when swapping in high-resolution originals.

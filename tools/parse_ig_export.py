@@ -27,6 +27,19 @@ RU_MONTHS = {
 }
 
 
+MONTH_NUM = {name: num for num, name in RU_MONTHS.values()}
+
+
+def override_date(s):
+    """'July 2024' -> ('July 2024', '2024-07'). Month and year only, so the ISO
+    form stops at the month rather than inventing a day."""
+    m = re.match(r"\s*([A-Z][a-z]+)\s+(\d{4})\s*$", s)
+    if not m or m.group(1) not in MONTH_NUM:
+        return "", ""
+    return ("%s %s" % (m.group(1), m.group(2)),
+            "%s-%02d" % (m.group(2), MONTH_NUM[m.group(1)]))
+
+
 def parse_post_date(s):
     """'окт 24, 2026 2:37 am' -> ('October 2026', '2026-10-24'), or ('', '').
 
@@ -81,7 +94,17 @@ TITLES = {
 }
 
 # posts folded into another entry as extra views: {media -> target media}
-MERGE_INTO = {"17970471571710256.webp": "17991007885468360.webp"}
+# The merged post's own title and caption are dropped, so if its caption said
+# something worth keeping, carry that sentence over via CAPTION_EDITS on the
+# target (see the Cigar Galaxy) -- and remember to delete the merged slug's own
+# CAPTION_EDITS entry, or the unknown-slug guard will fail the build.
+MERGE_INTO = {
+    "17970471571710256.webp": "17991007885468360.webp",
+    # The early M82 attempt becomes the second view of the finished M82, so the
+    # two versions sit in one panel and you swipe between them. Export order
+    # puts the newer post first, which is the one that shows on the card.
+    "17969617705730105.webp": "17968986481731950.webp",
+}
 
 # not paintings; kept out of the gallery
 EXCLUDE = {"18100029988294296.webp": "introduction post - offered as about-section source"}
@@ -96,7 +119,25 @@ SIZE_NORMALISE = {
     "a2": "42 × 59.4 cm",
 }
 
-# pairs of slugs whose positions in the gallery are swapped
+# Sizes Sofia gave directly, for paintings whose caption never stated one.
+# slug -> a SIZE_NORMALISE key or a literal measurement.
+#
+# This is the one sanctioned exception to "take dimensions only from the
+# captions": the rule exists so nothing gets looked up or guessed, and here
+# Sofia is the source herself. Do not "correct" these back to empty because
+# the caption doesn't mention them -- record new ones here the same way.
+SIZE_OVERRIDE = {
+    "sunset": "a6",
+}
+
+# Dates Sofia corrected by hand, slug -> "Month YYYY". Same exception as
+# SIZE_OVERRIDE: the export only knows when a post went up, which can be months
+# after the painting was made. Her correction wins over the parsed post date.
+DATE_OVERRIDE = {
+    "a-guinea-pig": "July 2024",
+    "another-guinea-pig": "July 2024",
+}
+
 # Slugs whose Instagram caption is dropped: the painting is shown with its
 # medium, size and date only. Sofia's call -- these four captions were casual
 # asides rather than anything she wants on the site. The medium/size line is
@@ -106,6 +147,15 @@ NO_CAPTION = {
     "sunset",
     "a-guinea-pig",
     "another-guinea-pig",
+}
+
+# Captions Sofia rewrote herself, slug -> the full replacement text. Used
+# instead of the export's caption, and CAPTION_EDITS is skipped for these.
+# Her words, supplied verbatim -- don't tidy or re-edit them.
+CAPTION_REPLACE = {
+    "m16-the-eagle-nebula":
+        "M16, the Eagle Nebula (also known as the Pillars of Creation),"
+        " 42 × 59.4 cm. This is my biggest watercolour painting to date.",
 }
 
 # Literal snips applied to a caption's prose, slug -> [(find, replace), ...].
@@ -122,26 +172,22 @@ CAPTION_EDITS = {
         # begins with a vowel sound and "fourteen" does not.
         ("an A5 painting", "a 14.8 × 21 cm painting"),
     ],
-    "m16-the-eagle-nebula": [
-        (" for his birthday.", "."),
-        # "in 42 × 59.4 cm size" would not be English, and leaving the
-        # parenthetical after the measurement reads as though the *size* were
-        # known as the Pillars of Creation -- so the aside moves back beside
-        # the nebula's name, where it belongs.
-        ("the Eagle Nebula, in A2 size (also known as the Pillars of"
-         " Creation).",
-         "the Eagle Nebula (also known as the Pillars of Creation),"
-         " measuring 42 × 59.4 cm."),
-        (", and was requested by my (very awesome) brother.", "."),
-    ],
-    "the-cigar-galaxy-m82-an-early-attempt": [
-        (" I gave this one to a very awesome person for their birthday.", ""),
+    "the-cigar-galaxy-m82": [
+        # The early attempt is now this entry's second view (see MERGE_INTO),
+        # and its own caption went with its entry. This sentence is that
+        # caption, verbatim minus the birthday line, so the second image is
+        # explained rather than just appearing.
+        ("I finished this version last week.",
+         "I finished this version last week.\n"
+         "This was one of my first attempts at painting M82, the Cigar"
+         " Galaxy."),
     ],
     "northern-lights-over-chocorua-lake": [
         ("This A5 watercolour", "This 14.8 × 21 cm watercolour"),
     ],
 }
 
+# pairs of slugs whose positions in the gallery are swapped
 SWAP_ORDER = [("a-guinea-pig", "another-guinea-pig")]
 
 SIZE_RE = re.compile(
@@ -299,12 +345,28 @@ def main():
                 media += by_media[extra]["media"]
 
         slug = slugify(title)
-        for find, repl in CAPTION_EDITS.get(slug, ()):
-            if find not in prose:
-                problems.append("CAPTION_EDITS text not found for %s: %r"
-                                % (slug, find))
-            else:
-                prose = prose.replace(find, repl, 1).strip()
+        posted, posted_iso = p["posted"], p["postedISO"]
+        if slug in DATE_OVERRIDE:
+            posted, posted_iso = override_date(DATE_OVERRIDE[slug])
+            if not posted:
+                problems.append("DATE_OVERRIDE for %s is not 'Month YYYY': %r"
+                                % (slug, DATE_OVERRIDE[slug]))
+
+        if slug in SIZE_OVERRIDE:
+            # through the same lookup as the captions, so "a6" renders exactly
+            # as the other 10.5 × 14.8 cm pieces do
+            raw = SIZE_OVERRIDE[slug]
+            size = SIZE_NORMALISE.get(raw.lower(), tidy_size(raw))
+
+        if slug in CAPTION_REPLACE:
+            prose = CAPTION_REPLACE[slug]
+        else:
+            for find, repl in CAPTION_EDITS.get(slug, ()):
+                if find not in prose:
+                    problems.append("CAPTION_EDITS text not found for %s: %r"
+                                    % (slug, find))
+                else:
+                    prose = prose.replace(find, repl, 1).strip()
 
         entries.append({
             "slug": slug,
@@ -316,8 +378,8 @@ def main():
             "medium": medium,
             "size": size,
             "takenRaw": p["taken"],
-            "posted": p["posted"],
-            "postedISO": p["postedISO"],
+            "posted": posted,
+            "postedISO": posted_iso,
             "sourceImages": media,
             "images": existing.get(slug, []),
         })
@@ -328,6 +390,12 @@ def main():
         problems.append("NO_CAPTION refers to unknown slug: %s" % s)
     for s in sorted(set(CAPTION_EDITS) - set(by_slug)):
         problems.append("CAPTION_EDITS refers to unknown slug: %s" % s)
+    for s in sorted(set(CAPTION_REPLACE) - set(by_slug)):
+        problems.append("CAPTION_REPLACE refers to unknown slug: %s" % s)
+    for s in sorted(set(SIZE_OVERRIDE) - set(by_slug)):
+        problems.append("SIZE_OVERRIDE refers to unknown slug: %s" % s)
+    for s in sorted(set(DATE_OVERRIDE) - set(by_slug)):
+        problems.append("DATE_OVERRIDE refers to unknown slug: %s" % s)
 
     # Backstop for CAPTION_EDITS: nothing that reaches the site may mention a
     # birthday, however the caption gets reworded upstream.
