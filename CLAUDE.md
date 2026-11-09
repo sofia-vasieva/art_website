@@ -205,9 +205,23 @@ git's 1 MB default. Already configured locally:
 exists, and Publish only knows how to *create*. Use `git push`. (Historical: the
 first create returned HTTP 500 *after* succeeding, which caused the confusion.)
 
-**Size strings are normalised for display only** (`10.5x14.8cm` → `10.5 × 14.8
-cm`); caption prose is untouched. `"postcard size"` maps to `10.5 × 14.8 cm` at
-Sofia's request.
+**All sizes are in centimetres, prose included.** The metadata line is
+normalised by `SIZE_NORMALISE` (`10.5x14.8cm` → `10.5 × 14.8 cm`, and the paper
+names `postcard`/`A6`/`A5`/`A4`/`A2` → their measurements). Captions that named
+a paper size are rewritten through `CAPTION_EDITS`, since leaving "an A5
+painting" above a metadata line reading `14.8 × 21 cm` described one painting two
+ways. The build fails if `A<digit>` or `postcard` survives in any caption.
+
+Rewriting prose needs a grammar read, not a find-and-replace: `"an A5 painting"`
+became `"a 14.8 × 21 cm painting"` because the article has to change, and the
+Eagle Nebula's `"in A2 size (also known as the Pillars of Creation)"` had its
+parenthetical moved back beside the nebula's name — left where it was, the aside
+attached to the measurement instead.
+
+**Sofia wants personal material off the site** — gift occasions, birthdays,
+other people's handles, family references. `CAPTION_EDITS` and `NO_CAPTION`
+carry the removals done so far. She decides each case: flag anything you spot,
+don't quietly rewrite her prose.
 
 ---
 

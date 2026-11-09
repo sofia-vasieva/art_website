@@ -118,12 +118,27 @@ CAPTION_EDITS = {
     "m104-the-sombrero-galaxy": [
         (", which I gave to the incredible (!!!) @emma89harris for her"
          " birthday earlier this year.", "."),
+        # "an A5" -> "a 14.8": the article has to change with it, because A5
+        # begins with a vowel sound and "fourteen" does not.
+        ("an A5 painting", "a 14.8 × 21 cm painting"),
     ],
     "m16-the-eagle-nebula": [
         (" for his birthday.", "."),
+        # "in 42 × 59.4 cm size" would not be English, and leaving the
+        # parenthetical after the measurement reads as though the *size* were
+        # known as the Pillars of Creation -- so the aside moves back beside
+        # the nebula's name, where it belongs.
+        ("the Eagle Nebula, in A2 size (also known as the Pillars of"
+         " Creation).",
+         "the Eagle Nebula (also known as the Pillars of Creation),"
+         " measuring 42 × 59.4 cm."),
+        (", and was requested by my (very awesome) brother.", "."),
     ],
     "the-cigar-galaxy-m82-an-early-attempt": [
         (" I gave this one to a very awesome person for their birthday.", ""),
+    ],
+    "northern-lights-over-chocorua-lake": [
+        ("This A5 watercolour", "This 14.8 × 21 cm watercolour"),
     ],
 }
 
@@ -319,6 +334,11 @@ def main():
     for x in entries:
         if re.search(r"birthday|bday|b-day", x["caption"], re.I):
             problems.append("birthday still mentioned in caption: %s" % x["slug"])
+        # Sizes are given in centimetres everywhere, prose included.
+        m = re.search(r"\b(A[0-9]|postcard)\b", x["caption"], re.I)
+        if m:
+            problems.append("paper-size name %r left in caption: %s"
+                            % (m.group(0), x["slug"]))
     for a, b in SWAP_ORDER:
         if a in by_slug and b in by_slug:
             by_slug[a]["order"], by_slug[b]["order"] = \
