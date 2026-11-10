@@ -97,17 +97,26 @@ titles, captions, section moves and the `about` field, then regenerate.
 discarding hand edits. It does preserve built image records (matched by slug),
 so it won't force an image rebuild. Durable content tweaks belong in the
 script's own tables (`TITLES`, `SIZE_NORMALISE`, `SWAP_ORDER`, `MERGE_INTO`,
-`EXCLUDE`, `NO_CAPTION`, `EXTRA_ENTRIES`), not in `gallery.json`.
+`EXCLUDE`, `NO_CAPTION`, `SUPPLIED_ENTRIES`), not in `gallery.json`.
 
-**A painting that was never an Instagram post goes in `EXTRA_ENTRIES`** in the
-parser, with its photograph dropped into `originals/`. The export can't supply
-a title, caption, medium, size or date for these, so the table carries all of
-them — which means the `verify` guard can't apply and the entry has to be read
-rather than trusted. `after` names the slug it sits below in the gallery
-(`None` = first), and its `order` is placed half a step above that one so the
-export's own numbering is untouched. Everything else — size normalisation, the
-birthday and paper-size backstops, EXIF stripping — runs over these entries
-exactly as it does over the export's.
+**`posts_1.html` is a snapshot, so a painting Sofia posts after that download
+isn't in it.** Those go in `SUPPLIED_ENTRIES` in the parser, with the
+photograph dropped into `originals/`. The table carries the title, caption,
+medium, size and date the export would otherwise supply, which means the
+`verify` guard has nothing to check against and the entry has to be read rather
+than trusted. `after` names the slug it sits below in the gallery (`None` =
+first), and its `order` is placed half a step above that one so the export's
+own numbering is untouched. Everything else — size normalisation, the birthday
+and paper-size backstops, EXIF stripping — runs over these entries exactly as
+it does over the export's.
+
+This table is **not** a category of work, and nothing on the site is split by
+where an entry came from: `hashtags`, `takenRaw` and `sourceImages` are never
+rendered, so once an entry reaches `gallery.json` it is indistinguishable from
+an imported one (the parser asserts the two have identical shape). Don't add
+rendering that would break that. If a fresh export is ever imported, delete the
+entry from the table — otherwise the painting appears twice, which the
+duplicate-slug guard will catch.
 
 **`NO_CAPTION`** holds slugs shown with medium, size and date but *no* caption
 prose — currently `a-walk`, `sunset`, `a-guinea-pig`, `another-guinea-pig`, at

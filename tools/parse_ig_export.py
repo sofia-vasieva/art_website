@@ -187,12 +187,25 @@ CAPTION_EDITS = {
     ],
 }
 
-# Paintings Sofia hands over directly, which were never an Instagram post. The
-# export is the source for everything she published there; this table is for
-# work that only ever appears on the site. The content rule is unchanged -- the
-# caption is her own text and the medium, size and date are hers, so nothing
-# here is looked up or guessed. A `verify` term would be meaningless (there is
-# no caption to check the title against), so read these entries.
+# Entries whose content Sofia supplies directly, instead of it being read out
+# of the export.
+#
+# posts_1.html is a snapshot, downloaded once -- so a painting she posts after
+# that download simply isn't in it. That is a fact about the export file, not
+# about the painting, and it is the only thing this table means. These are not
+# "non-Instagram" work and the site draws no such distinction: `hashtags`,
+# `takenRaw` and `sourceImages` are never rendered, so once an entry is in
+# gallery.json nothing downstream can tell where it came from. Do not add any
+# rendering that could.
+#
+# The content rule is unchanged -- the caption is her own text and the medium,
+# size and date are hers, so nothing here is looked up or guessed. What does
+# change is that `verify` has nothing to check against, there being no exported
+# caption, so read these entries rather than trusting the guard.
+#
+# If a fresh export is ever imported, the posts listed here will arrive in it
+# through TITLES. Delete the entry from this table when that happens, or the
+# painting appears twice.
 #
 #   after        slug this entry sits immediately below in the gallery, or None
 #                to place it first. Gallery order is newest-first.
@@ -200,7 +213,7 @@ CAPTION_EDITS = {
 #                supplies directly live in the gitignored originals/.
 #   size         a SIZE_NORMALISE key or a literal measurement, normalised the
 #                same way the captions are.
-EXTRA_ENTRIES = [
+SUPPLIED_ENTRIES = [
     {
         "title": "The Southern Pinwheel Galaxy (M83) II",
         "section": "deepsky",
@@ -440,25 +453,26 @@ def main():
         else:
             problems.append("SWAP_ORDER refers to unknown slug: %s / %s" % (a, b))
 
-    # Entries added outside the export. Their `order` is placed half a step
-    # above the entry they follow, so the export's own numbering is left alone
-    # and `SWAP_ORDER` keeps working on it.
-    for spec in EXTRA_ENTRIES:
+    # Entries supplied directly rather than read from the export. Their `order`
+    # is placed half a step above the entry they follow, so the export's own
+    # numbering is left alone and `SWAP_ORDER` keeps working on it.
+    for spec in SUPPLIED_ENTRIES:
         slug = slugify(spec["title"])
         if slug in by_slug:
-            problems.append("EXTRA_ENTRIES duplicates an existing slug: %s" % slug)
+            problems.append("SUPPLIED_ENTRIES duplicates an existing slug: %s "
+                            "(a fresh export may already carry it)" % slug)
             continue
         if spec["after"] is None:
             order = min([x["order"] for x in entries] or [0]) - 1
         elif spec["after"] in by_slug:
             order = by_slug[spec["after"]]["order"] + 0.5
         else:
-            problems.append("EXTRA_ENTRIES 'after' is an unknown slug: %s"
+            problems.append("SUPPLIED_ENTRIES 'after' is an unknown slug: %s"
                             % spec["after"])
             continue
         posted, posted_iso = override_date(spec["date"])
         if not posted:
-            problems.append("EXTRA_ENTRIES date for %s is not 'Month YYYY': %r"
+            problems.append("SUPPLIED_ENTRIES date for %s is not 'Month YYYY': %r"
                             % (slug, spec["date"]))
         size = spec.get("size", "")
         extra = {
@@ -478,6 +492,9 @@ def main():
             "sourceImages": list(spec["sourceImages"]),
             "images": existing.get(slug, []),
         }
+        # identical in shape to an export-derived entry, by assertion -- the
+        # site must not be able to tell the two apart
+        assert set(extra) == set(entries[0]), sorted(set(extra) ^ set(entries[0]))
         entries.append(extra)
         by_slug[slug] = extra
 
