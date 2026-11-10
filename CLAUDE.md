@@ -45,7 +45,10 @@ These persist across sessions. Do not relax them without her saying so.
 - Custom domain **`art.sofiavasieva.com`** is planned but not attached — she is
   waiting on a registrar transfer to IONOS. Instructions are in
   [PUBLISHING.md](PUBLISHING.md) §4. Don't add DNS records mid-transfer.
-- **Published:** 28 paintings — 22 `deepsky`, 6 `other`. 37 MB of images.
+- **Published:** 28 paintings — 22 `deepsky` + 6 `other`. 29 entries in
+  `gallery.json`, the 29th being the held-back `process` one. 39 MB of images.
+  These counts are documentation only; the numbers beside the section headings
+  on the site are computed at build time from `gallery.json`.
 - **Held back:** the `process` section (1 entry) and the About section. The site
   is intended to look complete as it stands.
 
@@ -68,6 +71,7 @@ generate plain static HTML. The published site has no build step.
 
 ```
 posts/              raw Instagram export  ** GITIGNORED, see Gotchas **
+originals/          photos Sofia hands over directly  ** GITIGNORED, GPS/EXIF **
 tools/              the three build scripts
 gallery.json        single source of truth for content
 index.html          generated
@@ -93,7 +97,17 @@ titles, captions, section moves and the `about` field, then regenerate.
 discarding hand edits. It does preserve built image records (matched by slug),
 so it won't force an image rebuild. Durable content tweaks belong in the
 script's own tables (`TITLES`, `SIZE_NORMALISE`, `SWAP_ORDER`, `MERGE_INTO`,
-`EXCLUDE`, `NO_CAPTION`), not in `gallery.json`.
+`EXCLUDE`, `NO_CAPTION`, `EXTRA_ENTRIES`), not in `gallery.json`.
+
+**A painting that was never an Instagram post goes in `EXTRA_ENTRIES`** in the
+parser, with its photograph dropped into `originals/`. The export can't supply
+a title, caption, medium, size or date for these, so the table carries all of
+them — which means the `verify` guard can't apply and the entry has to be read
+rather than trusted. `after` names the slug it sits below in the gallery
+(`None` = first), and its `order` is placed half a step above that one so the
+export's own numbering is untouched. Everything else — size normalisation, the
+birthday and paper-size backstops, EXIF stripping — runs over these entries
+exactly as it does over the export's.
 
 **`NO_CAPTION`** holds slugs shown with medium, size and date but *no* caption
 prose — currently `a-walk`, `sunset`, `a-guinea-pig`, `another-guinea-pig`, at

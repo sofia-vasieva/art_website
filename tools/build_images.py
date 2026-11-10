@@ -18,7 +18,12 @@ sys.stdout.reconfigure(encoding="utf-8")
 Image.MAX_IMAGE_PIXELS = None
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC_DIRS = [os.path.join(HERE, "posts"), os.path.join(HERE, "posts", "202207")]
+# posts/ holds the Instagram export's media; originals/ holds photographs Sofia
+# supplies directly, for paintings that were never posted. Both are gitignored:
+# the originals carry GPS and device metadata, which only the derivatives below
+# have stripped.
+SRC_DIRS = [os.path.join(HERE, "posts"), os.path.join(HERE, "posts", "202207"),
+            os.path.join(HERE, "originals")]
 GALLERY = os.path.join(HERE, "gallery.json")
 
 SIZES = {"thumb": 640, "display": 1600, "full": 2560}

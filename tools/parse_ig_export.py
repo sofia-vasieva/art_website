@@ -187,6 +187,41 @@ CAPTION_EDITS = {
     ],
 }
 
+# Paintings Sofia hands over directly, which were never an Instagram post. The
+# export is the source for everything she published there; this table is for
+# work that only ever appears on the site. The content rule is unchanged -- the
+# caption is her own text and the medium, size and date are hers, so nothing
+# here is looked up or guessed. A `verify` term would be meaningless (there is
+# no caption to check the title against), so read these entries.
+#
+#   after        slug this entry sits immediately below in the gallery, or None
+#                to place it first. Gallery order is newest-first.
+#   sourceImages filenames under one of build_images.py's SRC_DIRS; photos she
+#                supplies directly live in the gitignored originals/.
+#   size         a SIZE_NORMALISE key or a literal measurement, normalised the
+#                same way the captions are.
+EXTRA_ENTRIES = [
+    {
+        "title": "The Southern Pinwheel Galaxy (M83) II",
+        "section": "deepsky",
+        "after": None,
+        "medium": "Watercolour on paper",
+        "size": "10.5x14.8cm",
+        "date": "October 2026",
+        "sourceImages": ["M83_2.jpg"],
+        "hashtags": ["galaxypainting", "spaceart", "spacepainting",
+                     "watercolour", "watercolourgalaxy"],
+        "caption":
+            "Another watercolour interpretation of M83, the Southern Pinwheel"
+            " Galaxy, because I enjoyed painting the first version so much and"
+            " wanted to try looking at this object in a different way.\n\n"
+            "M83 is a massive, grand-design spiral galaxy near the"
+            " constellation border of Hydra and Centaurus. It is at the centre"
+            " of the M83 galaxy group, next to the Centaurus A galaxy group,"
+            " and the two are sometimes classified as one larger group.",
+    },
+]
+
 # pairs of slugs whose positions in the gallery are swapped
 SWAP_ORDER = [("a-guinea-pig", "another-guinea-pig")]
 
@@ -384,7 +419,8 @@ def main():
             "images": existing.get(slug, []),
         })
 
-    # apply requested position swaps, then lock the gallery to `order`
+    # apply requested position swaps, add the non-export entries, then lock the
+    # gallery to `order`
     by_slug = {x["slug"]: x for x in entries}
     for s in sorted(NO_CAPTION - set(by_slug)):
         problems.append("NO_CAPTION refers to unknown slug: %s" % s)
@@ -397,6 +433,54 @@ def main():
     for s in sorted(set(DATE_OVERRIDE) - set(by_slug)):
         problems.append("DATE_OVERRIDE refers to unknown slug: %s" % s)
 
+    for a, b in SWAP_ORDER:
+        if a in by_slug and b in by_slug:
+            by_slug[a]["order"], by_slug[b]["order"] = \
+                by_slug[b]["order"], by_slug[a]["order"]
+        else:
+            problems.append("SWAP_ORDER refers to unknown slug: %s / %s" % (a, b))
+
+    # Entries added outside the export. Their `order` is placed half a step
+    # above the entry they follow, so the export's own numbering is left alone
+    # and `SWAP_ORDER` keeps working on it.
+    for spec in EXTRA_ENTRIES:
+        slug = slugify(spec["title"])
+        if slug in by_slug:
+            problems.append("EXTRA_ENTRIES duplicates an existing slug: %s" % slug)
+            continue
+        if spec["after"] is None:
+            order = min([x["order"] for x in entries] or [0]) - 1
+        elif spec["after"] in by_slug:
+            order = by_slug[spec["after"]]["order"] + 0.5
+        else:
+            problems.append("EXTRA_ENTRIES 'after' is an unknown slug: %s"
+                            % spec["after"])
+            continue
+        posted, posted_iso = override_date(spec["date"])
+        if not posted:
+            problems.append("EXTRA_ENTRIES date for %s is not 'Month YYYY': %r"
+                            % (slug, spec["date"]))
+        size = spec.get("size", "")
+        extra = {
+            "slug": slug,
+            "title": spec["title"],
+            "section": spec["section"],
+            "order": order,
+            "caption": spec.get("caption", ""),
+            "hashtags": sorted(set(spec.get("hashtags", []))),
+            "medium": spec.get("medium", ""),
+            "size": SIZE_NORMALISE.get(size.lower(), tidy_size(size)),
+            # no export post to read an EXIF capture date from, and it is never
+            # displayed anyway
+            "takenRaw": "",
+            "posted": posted,
+            "postedISO": posted_iso,
+            "sourceImages": list(spec["sourceImages"]),
+            "images": existing.get(slug, []),
+        }
+        entries.append(extra)
+        by_slug[slug] = extra
+
     # Backstop for CAPTION_EDITS: nothing that reaches the site may mention a
     # birthday, however the caption gets reworded upstream.
     for x in entries:
@@ -407,12 +491,6 @@ def main():
         if m:
             problems.append("paper-size name %r left in caption: %s"
                             % (m.group(0), x["slug"]))
-    for a, b in SWAP_ORDER:
-        if a in by_slug and b in by_slug:
-            by_slug[a]["order"], by_slug[b]["order"] = \
-                by_slug[b]["order"], by_slug[a]["order"]
-        else:
-            problems.append("SWAP_ORDER refers to unknown slug: %s / %s" % (a, b))
     entries.sort(key=lambda x: x["order"])
 
     data = {

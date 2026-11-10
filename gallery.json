@@ -13,6 +13,53 @@
   "about": "",
   "entries": [
     {
+      "slug": "the-southern-pinwheel-galaxy-m83-ii",
+      "title": "The Southern Pinwheel Galaxy (M83) II",
+      "section": "deepsky",
+      "order": -1,
+      "caption": "Another watercolour interpretation of M83, the Southern Pinwheel Galaxy, because I enjoyed painting the first version so much and wanted to try looking at this object in a different way.\n\nM83 is a massive, grand-design spiral galaxy near the constellation border of Hydra and Centaurus. It is at the centre of the M83 galaxy group, next to the Centaurus A galaxy group, and the two are sometimes classified as one larger group.",
+      "hashtags": [
+        "galaxypainting",
+        "spaceart",
+        "spacepainting",
+        "watercolour",
+        "watercolourgalaxy"
+      ],
+      "medium": "Watercolour on paper",
+      "size": "10.5 × 14.8 cm",
+      "takenRaw": "",
+      "posted": "October 2026",
+      "postedISO": "2026-10",
+      "sourceImages": [
+        "M83_2.jpg"
+      ],
+      "images": [
+        {
+          "w": 3840,
+          "h": 2764,
+          "lqip": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAOABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCjawi4fBHA5NPvLLylztAwO1VrO4MTHrz3Harl1evJAxY5GMDirQjJJAJoqOT5Wwck4zxRUgf/2Q==",
+          "thumb": {
+            "jpg": "images/thumb/the-southern-pinwheel-galaxy-m83-ii.jpg",
+            "webp": "images/thumb/the-southern-pinwheel-galaxy-m83-ii.webp",
+            "w": 640,
+            "h": 461
+          },
+          "display": {
+            "jpg": "images/display/the-southern-pinwheel-galaxy-m83-ii.jpg",
+            "webp": "images/display/the-southern-pinwheel-galaxy-m83-ii.webp",
+            "w": 1600,
+            "h": 1152
+          },
+          "full": {
+            "jpg": "images/full/the-southern-pinwheel-galaxy-m83-ii.jpg",
+            "webp": "images/full/the-southern-pinwheel-galaxy-m83-ii.webp",
+            "w": 2560,
+            "h": 1843
+          }
+        }
+      ]
+    },
+    {
       "slug": "the-cosmic-reef-nebula",
       "title": "The Cosmic Reef Nebula",
       "section": "deepsky",
